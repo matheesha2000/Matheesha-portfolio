@@ -18,7 +18,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <html lang="en" className={`dark ${poppins.variable} font-sans`}>
       <body>
-        <Navbar />
+        <Navbar />    
         {children}
       </body>
     </html>

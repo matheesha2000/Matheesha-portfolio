@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center space-x-10 font-bold text-lg">
-            <Link href="#home" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
+            <Link href="/" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
               Home
             </Link>
             <Link href="#about" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
