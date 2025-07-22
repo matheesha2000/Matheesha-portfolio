@@ -2,21 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-transparent ">
+    <header className="w-full fixed top-0 left-0 z-50 bg-transparent">
       <div className="w-full bg-[#ffffff] dark:bg-[#1a1a1a] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between">
-          {/* Animated Text Logo */}
-<Link href="/">
-  <span className="flex items-center space-x-4 text-2xl font-bold text-gray-900 dark:text-[#ff014f] animate-pulse">
-    MATHEESHA
-  </span>
-</Link>
+          {/* Logo */}
+          <Link href="/">
+            <span className="flex items-center space-x-4 text-2xl font-bold text-gray-900 dark:text-[#ff014f] animate-pulse">
+              MATHEESHA
+            </span>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center space-x-10 font-bold text-lg">
@@ -26,20 +25,14 @@ const Navbar: React.FC = () => {
             <Link href="#about" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
               About
             </Link>
-            {/* <Link href="#services" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
-              Services
-            </Link> */}
             <Link href="#portfolio" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
               Projects
             </Link>
-            {/* <Link href="#blog" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
-              Blog
-            </Link> */}
             <Link href="#contact" className="text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]">
               Contact
             </Link>
             <a
-              href="/cv.pdf"
+              href="/documents/QA Intern CV - Matheesaha Kalatuwawa.pdf"
               download
               className="ml-6 inline-flex items-center px-4 py-2 border-2 border-[#ff014f] text-[#ff014f] dark:text-[#ffffff] hover:bg-[#ff014f] hover:text-white dark:border-[#ffffff] dark:hover:bg-[#ff014f] dark:hover:border-[#ff014f] dark:hover:text-black rounded-full transition"
             >
@@ -63,7 +56,7 @@ const Navbar: React.FC = () => {
             </a>
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Menu Toggle */}
           <button
             className="lg:hidden text-[#212428] dark:text-[#ffffff]"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -76,19 +69,9 @@ const Navbar: React.FC = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               {menuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
@@ -108,7 +91,7 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             <a
-              href="/cv.pdf"
+              href="/documents/QA Intern CV - Matheesaha Kalatuwawa.pdf"
               download
               className="mt-2 inline-flex items-center px-4 py-2 border border-[#ff014f] text-[#ffffff] dark:text-[#ffffff] hover:bg-[#ff014f] hover:text-[#ff014f] dark:border-[#ffffff] dark:hover:bg-[#ff014f] dark:hover:border-[#ff014f] dark:hover:text-black rounded-full transition"
             >
