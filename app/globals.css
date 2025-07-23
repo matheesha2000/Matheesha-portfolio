@@ -47,3 +47,22 @@ main {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
+/* === Background Gradient Animation === */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-bg {
+  background: linear-gradient(270deg, #ff014f, #ff75a0, #ff014f);
+  background-size: 600% 600%;
+  animation: gradientShift 20s ease infinite;
+}

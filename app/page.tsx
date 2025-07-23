@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
+import FloatingCircles from "@/components/FloatingCircles";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaDotCircle } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
@@ -12,7 +12,7 @@ import { useInView } from "react-intersection-observer";
 const titles = ["Software Quality Assurance Engineer", "Full Stack Web Developer"];
 const images = ["/images/hero/profile1.jpg", "/images/hero/profile2.jpg"];
 
-// === About Page Constants ===
+// === About Page Constants (UNCHANGED) ===
 const personalInfos = [
   { label: "First Name", value: "Matheesha" },
   { label: "Last Name", value: "Kalatuwawa" },
@@ -24,6 +24,7 @@ const personalInfos = [
   { label: "Languages", value: "Sinhala, English" },
 ];
 
+// === Education Page Constants ===
 const educationData = [
   {
     title: "BSc (Hons) Software Engineering",
@@ -74,7 +75,6 @@ const SkillBar = ({
   </div>
 );
 
-// === Main Page Component (Merged) ===
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
@@ -150,10 +150,13 @@ export default function Home() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins"
+            className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins overflow-hidden"
           >
+            {/* Floating circles background */}
+            <FloatingCircles />
+
             {/* === HOME SECTION === */}
-            <div className="container mx-auto px-4 py-16 sm:py-20 lg:mt-20">
+            <div className="container mx-auto px-4 py-16 sm:py-20 lg:mt-20 relative z-10">
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-20">
                 <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm h-96 sm:h-120 md:h-[400px] lg:h-120 mx-auto mt-6 lg:mt-0 mb-8 lg:mb-0">
                   {images.map((src, i) => (
@@ -197,16 +200,36 @@ export default function Home() {
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
                       <span className="text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
                       <div className="flex gap-3 text-xl">
-                        <a href="https://www.linkedin.com/in/matheesha-kalatuwawa/" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="https://www.linkedin.com/in/matheesha-kalatuwawa/"
+                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <i className="ri-linkedin-fill"></i>
                         </a>
-                        <a href="https://github.com/matheesha2000" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="https://github.com/matheesha2000"
+                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <i className="ri-github-fill"></i>
                         </a>
-                        <a href="https://web.facebook.com/matheesha.kalatuwawa.9" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="https://web.facebook.com/matheesha.kalatuwawa.9"
+                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <i className="ri-facebook-fill"></i>
                         </a>
-                        <a href="https://www.instagram.com/matheeesha.__/" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="https://www.instagram.com/matheeesha.__/"
+                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <i className="ri-instagram-fill"></i>
                         </a>
                       </div>
@@ -216,8 +239,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* === ABOUT SECTION === */}
-            <main id="about" className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white">
+            {/* === ABOUT SECTION (UNCHANGED) === */}
+            <main
+              id="about"
+              className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white relative z-10"
+            >
               <section className="mb-10 ">
                 <div className="text-center mb-18">
                   <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold">ABOUT ME</h2>
@@ -225,17 +251,15 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-40 items-center">
                   <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold mb-6">
-                      I catch bugs early using QA.
-                    </h1>
-                    <h3 className="text-lg font-semibold text-[#ff014f] mb-4">
-                      PERSONAL INFOS:
-                    </h3>
+                    <h1 className="text-2xl sm:text-3xl font-bold mb-6">I catch bugs early using QA.</h1>
+                    <h3 className="text-lg font-semibold text-[#ff014f] mb-4">PERSONAL INFOS:</h3>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base">
                       {personalInfos.map((item, index) => (
                         <li key={index} className="flex items-center gap-3">
                           <FaDotCircle className="text-[#ff014f] text-sm flex-shrink-0" />
-                          <span>{item.label}: {item.value}</span>
+                          <span>
+                            {item.label}: {item.value}
+                          </span>
                         </li>
                       ))}
                     </ul>
