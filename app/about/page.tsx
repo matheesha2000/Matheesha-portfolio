@@ -158,7 +158,7 @@ function About() {
                   {item.year}
                 </div>
                 <div className="pt-10">
-                  <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2 group-hover:underline underline-offset-4">
+                  <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
                     {item.title}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
