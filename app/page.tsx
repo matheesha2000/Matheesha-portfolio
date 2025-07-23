@@ -78,27 +78,27 @@ export default function Home() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins"
           >
-            <div className="container fixed  mx-auto px-4 py-16 sm:py-20 lg:mt-20">
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-13">
+            <div className="container mx-auto px-4 py-16 sm:py-20 lg:mt-20">
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-20">
                 {/* Hero Image */}
-                <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm h-96 sm:h-120 md:h-[400px] lg:h-120 mx-auto mt-6 lg:mt-0 mb-8 lg:mb-0 lg:mr-12">
-  {images.map((src, i) => (
-    <Image
-      key={i}
-      src={src}
-      alt={`Profile ${i + 1}`}
-      layout="fill"
-      className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000 ease-in-out rounded-3xl shadow-lg ${
-        i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      }`}
-      priority={i === imgIndex}
-    />
-  ))}
-</div>
+                <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm h-96 sm:h-120 md:h-[400px] lg:h-120 mx-auto mt-6 lg:mt-0 mb-8 lg:mb-0">
+                  {images.map((src, i) => (
+                    <Image
+                      key={i}
+                      src={src}
+                      alt={`Profile ${i + 1}`}
+                      layout="fill"
+                      className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000 ease-in-out rounded-3xl shadow-lg ${
+                        i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                      }`}
+                      priority={i === imgIndex}
+                    />
+                  ))}
+                </div>
 
                 {/* Hero Content */}
-                <div className="text-center lg:text-left max-w-2xl lg:mt-30">
-                  <span className="block text-[#ff014f] text-xl sm:text-2xl font-bold italic mb-2 sm:mb-3">
+                <div className="text-center lg:text-left max-w-4xl lg:mt-30">
+                  <span className="block text-[#ff014f] text-xl sm:text-2xl font-semibold italic mb-2 sm:mb-3">
                     HELLO I&apos;M
                   </span>
                   <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[#212428] dark:text-white">
@@ -106,7 +106,7 @@ export default function Home() {
                   </h1>
                   <h2 className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-4 min-h-[40px]">
                     {text}
-                    <span className="animate-pulse ml-1">|</span>
+                    {/* <span className="animate-pulse ml-1">|</span> */}
                   </h2>
 
                   <p className="text-base sm:text-lg text-gray-700 dark:text-gray-400 mb-6">
@@ -125,40 +125,16 @@ export default function Home() {
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
                       <span className="text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
                       <div className="flex gap-3 text-xl">
-                        <a
-                          href="https://www.linkedin.com/in/matheesha-kalatuwawa/"
-                          aria-label="Linkedin"
-                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="https://www.linkedin.com/in/matheesha-kalatuwawa/" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
                           <i className="ri-linkedin-fill"></i>
                         </a>
-                        <a
-                          href="https://github.com/matheesha2000"
-                          aria-label="Github"
-                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="https://github.com/matheesha2000" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
                           <i className="ri-github-fill"></i>
                         </a>
-                        <a
-                          href="https://web.facebook.com/matheesha.kalatuwawa.9"
-                          aria-label="Facebook"
-                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="https://web.facebook.com/matheesha.kalatuwawa.9" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
                           <i className="ri-facebook-fill"></i>
                         </a>
-                        <a
-                          href="https://www.instagram.com/matheeesha.__/"
-                          aria-label="Instagram"
-                          className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="https://www.instagram.com/matheeesha.__/" className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]" target="_blank" rel="noopener noreferrer">
                           <i className="ri-instagram-fill"></i>
                         </a>
                       </div>
