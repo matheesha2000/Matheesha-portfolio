@@ -78,24 +78,23 @@ export default function Home() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins"
           >
-            <div className="container mx-auto px-4 py-16 sm:py-20 lg:mt-20">
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
+            <div className="container fixed  mx-auto px-4 py-16 sm:py-20 lg:mt-20">
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-13">
                 {/* Hero Image */}
                 <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm h-96 sm:h-120 md:h-[400px] lg:h-120 mx-auto mt-6 lg:mt-0 mb-8 lg:mb-0 lg:mr-12">
-                  {images.map((src, i) => (
-                    <Image
-                      key={i}
-                      src={src}
-                      alt={`Profile ${i + 1}`}
-                      width={500}
-                      height={500}
-                      className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000 ease-in-out rounded-3xl shadow-lg ${
-                        i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                      }`}
-                      priority={i === imgIndex}
-                    />
-                  ))}
-                </div>
+  {images.map((src, i) => (
+    <Image
+      key={i}
+      src={src}
+      alt={`Profile ${i + 1}`}
+      layout="fill"
+      className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000 ease-in-out rounded-3xl shadow-lg ${
+        i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
+      }`}
+      priority={i === imgIndex}
+    />
+  ))}
+</div>
 
                 {/* Hero Content */}
                 <div className="text-center lg:text-left max-w-2xl lg:mt-30">
