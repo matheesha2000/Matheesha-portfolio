@@ -100,7 +100,7 @@ export default function Home() {
                 {/* Hero Content */}
                 <div className="text-center lg:text-left max-w-2xl lg:mt-30">
                   <span className="block text-[#ff014f] text-xl sm:text-2xl font-bold italic mb-2 sm:mb-3">
-                    HELLO I'M
+                    HELLO I&apos;M
                   </span>
                   <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[#212428] dark:text-white">
                     Matheesha Kalatuwawa.
