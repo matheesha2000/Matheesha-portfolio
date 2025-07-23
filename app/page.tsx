@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-const titles = ["Quality Assurance Engineer", "Web Developer"];
+const titles = ["Software Quality Assurance Engineer", "Full Stack Web Developer"];
 const images = ["/images/hero/profile1.jpg", "/images/hero/profile2.jpg"];
 
 export default function Home() {
@@ -116,7 +116,7 @@ export default function Home() {
 
                   <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-20">
                     <Link
-                      href="#about"
+                      href="/about"
                       className="px-6 py-3 text-lg sm:text-xl bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
                     >
                       About Me
