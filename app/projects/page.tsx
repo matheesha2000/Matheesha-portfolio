@@ -147,7 +147,7 @@ export default function Projects() {
               </div>
               {filteredProjects.length === 0 && (
                 <div className="text-center text-gray-500 mt-10">
-                  No projects found for "{selectedCategory}" category.
+                  No projects found for &quot;{selectedCategory}&quot; category.
                 </div>
               )}
             </div>
