@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
             {["home", "about", "projects", "contact"].map((section) => (
               <Link
                 key={section}
-                href={`#${section}`}
+                href={section === "home" ? "/" : `/${section}`}
                 className="block text-[#212428] dark:text-[#ffffff] hover:text-[#ff014f]"
                 onClick={() => setMenuOpen(false)}
               >
