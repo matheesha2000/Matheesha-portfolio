@@ -68,90 +68,61 @@ export default function Projects() {
   return (
     <>
       <Navbar />
-      <main className="main__content_wrapper inner__page--content mt-30">
-        <div className="page__heading text-center py-7">
-          <h1 className="page__heading--title text-4xl font-bold">MY PORTFOLIO</h1>
-          <h2 className="page__heading--subtitle text-xl font-semibold text-[#ff014f]">
-            <span className="text-[#ff014f]">PROJECTS</span>
-          </h2>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-40">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-extrabold mb-2 text-[#ff014f]">PROJECTS</h1>
+          <h2 className="text-2xl font-semibold ">Some of my latest featured and QA projects</h2>
         </div>
 
-        {/* Category Filter */}
-        <div className="text-center ">
-          <div className="inline-flex gap-4 flex-wrap justify-center">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition duration-300 ${
-                  selectedCategory === category
-                    ? "bg-[#ff014f] text-white"
-                    : "bg-gray-200 text-gray-800 hover:bg-[#ff014f] hover:text-white"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+        {/* Category Tabs */}
+        <div className="flex justify-center gap-6 flex-wrap">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-6 py-2 rounded-full border-2 font-semibold transition ${
+                selectedCategory === cat
+                  ? "border-[#ff014f] bg-[#ff014f] text-white"
+                  : "border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-300 hover:border-[#ff014f]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
-        {/* Projects Section */}
-        <section className="portfolio__section section--padding">
-          <div className="container mx-auto px-20">
-            <div className="portfolio__section--inner">
-              <div className="portfolio__grid grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
-                {filteredProjects.map((project, index) => (
-                  <div
-                    key={index}
-                    data-aos="fade-up"
-                    data-aos-delay={`${index * 100}`}
-                    className="element-item transition-transform duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    <div className="portfolio__card relative group overflow-hidden rounded-md shadow-md w-[350px] h-[220px] mx-auto">
-                      <a href="#" className="block w-full h-full">
-                        <div className="portfolio__image--card relative w-full h-full transition-opacity duration-500 ease-in-out group-hover:opacity-70">
-                          <Image
-                            src={project.image}
-                            alt={project.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="portfolio__content absolute inset-0 bg-opacity-40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex flex-col justify-center items-center text-center p-3">
-                          <span className="portfolio__zoom text-[#ff014f] mb-1 text-lg">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="32"
-                              height="32"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="feather feather-maximize"
-                            >
-                              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-                            </svg>
-                          </span>
-                          <h3 className="portfolio__title text-[#ff014f] text-lg font-semibold mb-1">
-                            {project.name}
-                          </h3>
-                          <p className="portfolio__desc text-[#ff014f] text-xs">
-                            {project.description}
-                          </p>
-                        </div>
-                      </a>
-                    </div>
+        {/* Projects Grid */}
+        <section>
+          {filteredProjects.length === 0 ? (
+            <p className="text-center text-gray-500">
+              No projects found for &quot;{selectedCategory}&quot; category.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={index}
+                  data-aos="fade-up"
+                  data-aos-delay={`${index * 100}`}
+                  className="group rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900 cursor-pointer"
+                >
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover rounded-t-xl group-hover:scale-110 transition-transform duration-500"
+                      priority={index < 3}
+                    />
                   </div>
-                ))}
-              </div>
-              {filteredProjects.length === 0 && (
-                <div className="text-center text-gray-500 mt-10">
-                  No projects found for &quot;{selectedCategory}&quot; category.
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg mb-2 text-[#ff014f]">{project.name}</h3>
+                    <p className="text-gray-700 dark:text-gray-300">{project.description}</p>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          </div>
+          )}
         </section>
       </main>
     </>

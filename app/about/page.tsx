@@ -145,14 +145,14 @@ function About() {
             <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold mb-4">
               EDUCATION
             </h2>
-            <h1 className="text-xl sm:text-2xl font-bold">Resume of Education</h1>
+            <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
             {educationData.map((item, index) => (
               <div
                 key={index}
-                className="relative group border border-gray-300 dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
+                className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
               >
                 <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                   {item.year}
@@ -187,7 +187,7 @@ function About() {
               <h2 className="text-[#ff014f] text-4xl font-extrabold mb-6">
                 SKILLS
               </h2>
-              <h1 className="text-2xl sm:text-3xl font-bold whitespace-nowrap">
+              <h1 className="text-2xl sm:text-2xl font-bold whitespace-nowrap">
                 My QA and Development Skillset Expertise
               </h1>
             </div>

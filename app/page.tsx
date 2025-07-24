@@ -7,6 +7,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaDotCircle } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // === Constants ===
 const titles = ["Software Quality Assurance Engineer", "Full Stack Web Developer"];
@@ -72,50 +74,108 @@ const SkillBar = ({
   </div>
 );
 
+// === Projects Data ===
+const projects = [
+  {
+    name: "Greenie",
+    description: "Eco-friendly lifestyle app for green living.",
+    image: "/images/projects/greenie.jpg",
+    categories: ["Featured", "Dev"],
+  },
+  {
+    name: "ABC Cinema",
+    description: "Movie booking platform with real-time seat availability.",
+    image: "/images/projects/abcCinema.png",
+    categories: ["Featured", "Dev"],
+  },
+  {
+    name: "Swag Labs Automation Testing",
+    description: "Automated UI tests for the Swag Labs e-commerce site.",
+    image: "/images/projects/swaglabs.png",
+    categories: ["Featured", "QA"],
+  },
+  {
+    name: "ClearSky Testing",
+    description: "QA solution for weather-based web services.",
+    image: "/images/projects/clearsky.png",
+    categories: ["QA"],
+  },
+  {
+    name: "Studee",
+    description: "Student-focused productivity and collaboration platform.",
+    image: "/images/projects/studee.jpg",
+    categories: ["Dev"],
+  },
+  {
+    name: "Grow Box",
+    description: "Smart gardening system with IoT integration.",
+    image: "/images/projects/growbox.jpg",
+    categories: ["Dev"],
+  },
+  {
+    name: "Triploo",
+    description: "Travel itinerary planner with smart suggestions.",
+    image: "/images/projects/triploo.jpg",
+    categories: ["Dev"],
+  },
+];
+
+const categories = ["Featured", "All", "Dev", "QA"];
+
 export default function Home() {
+  // State and hooks
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("Featured");
 
   const { ref: skillsRef, inView: skillsInView } = useInView({
     triggerOnce: true,
     threshold: 0.3,
   });
 
-  // Loader
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((p) => p.categories.includes(selectedCategory));
+
+  // Loader effect
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Typing effect
+  // Initialize AOS for animations
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
+  // Typing effect for hero titles
   useEffect(() => {
     if (loading) return;
     const currentTitle = titles[index];
     const speed = isDeleting ? 50 : 100;
     const timeout = setTimeout(() => {
-      setText(prev =>
-        isDeleting
-          ? currentTitle.substring(0, prev.length - 1)
-          : currentTitle.substring(0, prev.length + 1)
+      setText((prev) =>
+        isDeleting ? currentTitle.substring(0, prev.length - 1) : currentTitle.substring(0, prev.length + 1)
       );
       if (!isDeleting && text === currentTitle) {
         setTimeout(() => setIsDeleting(true), 1000);
       } else if (isDeleting && text === "") {
         setIsDeleting(false);
-        setIndex(prev => (prev + 1) % titles.length);
+        setIndex((prev) => (prev + 1) % titles.length);
       }
     }, speed);
     return () => clearTimeout(timeout);
   }, [text, isDeleting, index, loading]);
 
-  // Image switcher
+  // Image switching effect
   useEffect(() => {
     if (loading) return;
     const interval = setInterval(() => {
-      setImgIndex(prev => (prev + 1) % images.length);
+      setImgIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [loading]);
@@ -187,20 +247,36 @@ export default function Home() {
                     </a>
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
-                      <a href="https://www.linkedin.com/in/matheesha-kalatuwawa/" target="_blank" rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]">
+                      <a
+                        href="https://www.linkedin.com/in/matheesha-kalatuwawa/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                      >
                         <i className="ri-linkedin-fill" />
                       </a>
-                      <a href="https://github.com/matheesha2000" target="_blank" rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]">
+                      <a
+                        href="https://github.com/matheesha2000"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                      >
                         <i className="ri-github-fill" />
                       </a>
-                      <a href="https://web.facebook.com/matheesha.kalatuwawa.9" target="_blank" rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]">
+                      <a
+                        href="https://web.facebook.com/matheesha.kalatuwawa.9"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                      >
                         <i className="ri-facebook-fill" />
                       </a>
-                      <a href="https://www.instagram.com/matheeesha.__/" target="_blank" rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]">
+                      <a
+                        href="https://www.instagram.com/matheeesha.__/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                      >
                         <i className="ri-instagram-fill" />
                       </a>
                     </div>
@@ -225,7 +301,7 @@ export default function Home() {
                     I catch bugs early using QA.
                   </h1>
                   <h3 className="text-base sm:text-lg font-semibold text-[#ff014f] mb-4">PERSONAL INFOS:</h3>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base sm:text">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base">
                     {personalInfos.map((item, index) => (
                       <li key={index} className="flex items-center gap-3">
                         <FaDotCircle className="text-[#ff014f] text-sm flex-shrink-0" />
@@ -256,17 +332,17 @@ export default function Home() {
               </div>
             </section>
 
-            {/* === EDUCATION === */}
+            {/* === EDUCATION SECTION === */}
             <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white">
               <div className="text-center mb-12">
-                <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
-                <h1 className="text-xl sm:text-2xl font-bold">Resume of Education</h1>
+                <h2 className="text-[#ff014f] text-4xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
+                <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {educationData.map((item, index) => (
                   <div
                     key={index}
-                    className="relative group border border-gray-300 dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
+                    className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
                   >
                     <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                       {item.year}
@@ -292,7 +368,7 @@ export default function Home() {
             >
               <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
                 <div className="w-full max-w-full text-center md:text-left">
-                  <h2 className="text-[#ff014f] text-4xl text-center  font-extrabold mb-6">SKILLS</h2>
+                  <h2 className="text-[#ff014f] text-4xl text-center font-extrabold mb-6">SKILLS</h2>
                   <h1 className="text-2xl sm:text-3xl font-bold whitespace-normal sm:whitespace-nowrap">
                     My QA and Development Skillset Expertise
                   </h1>
@@ -325,6 +401,60 @@ export default function Home() {
                 </div>
               </div>
             </motion.section>
+
+            {/* === PROJECTS SECTION  === */}
+            <section className="portfolio__section section--padding pb-20">
+              <div className="text-center py-10">
+                <h2 className="text-[#ff014f] text-4xl font-extrabold mb-3">PROJECTS</h2>
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
+                  Some of my latest featured and QA projects
+                </h3>
+              </div>
+
+              {/* Category Tabs */}
+              <div className="flex justify-center gap-6 mb-12">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-6 py-2 rounded-full border-2 font-semibold transition ${
+                      selectedCategory === cat
+                        ? "border-[#ff014f] bg-[#ff014f] text-white"
+                        : "border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-300 hover:border-[#ff014f]"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              {/* Projects Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                {filteredProjects.map((project, i) => (
+                  <motion.div
+                    key={i}
+                    data-aos="fade-up"
+                    className="group rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900 cursor-pointer"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.name}
+                        fill
+                        className="object-cover rounded-t-xl group-hover:scale-110 transition-transform duration-500"
+                        priority={i < 3}
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-bold text-lg mb-2 text-[#ff014f]">{project.name}</h3>
+                      <p className="text-gray-700 dark:text-gray-300">{project.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
           </motion.main>
         )}
       </AnimatePresence>
