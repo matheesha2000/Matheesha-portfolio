@@ -76,6 +76,41 @@ const educationData = [
 ];
 
 // =========================
+// EducationCard Component
+// =========================
+function EducationCard({ item, delay }: { item: typeof educationData[0]; delay: number }) {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="relative group rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md"
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+        {item.year}
+      </div>
+      <div className="pt-10">
+        <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
+          {item.title}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          {item.subtitle}
+        </p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">
+          {item.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+// =========================
 // About Component
 // =========================
 function About() {
@@ -152,38 +187,9 @@ function About() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {educationData.map((item, index) => {
-              const [ref, inView] = useInView({
-                triggerOnce: true,
-                threshold: 0.2,
-              });
-
-              return (
-                <motion.div
-                  ref={ref}
-                  key={index}
-                  className="relative group rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
-                >
-                  <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                    {item.year}
-                  </div>
-                  <div className="pt-10">
-                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                      {item.subtitle}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {item.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {educationData.map((item, index) => (
+              <EducationCard key={index} item={item} delay={index * 0.15} />
+            ))}
           </div>
         </section>
 
@@ -198,9 +204,7 @@ function About() {
         >
           <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
             <div className="w-full max-w-full">
-              <h2 className="text-[#ff014f] text-4xl font-extrabold mb-6">
-                SKILLS
-              </h2>
+              <h2 className="text-[#ff014f] text-4xl font-extrabold mb-6">SKILLS</h2>
               <h1 className="text-2xl sm:text-2xl font-bold whitespace-nowrap">
                 My QA and Development Skillset Expertise
               </h1>
@@ -223,9 +227,7 @@ function About() {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold text-[#ff014f] mb-4">
-                QA Skills
-              </h3>
+              <h3 className="text-xl font-semibold text-[#ff014f] mb-4">QA Skills</h3>
               <SkillBar name="Manual Testing" percent="90%" inView={skillsInView} />
               <SkillBar name="Automation Testing" percent="70%" inView={skillsInView} />
               <SkillBar name="Selenium" percent="65%" inView={skillsInView} />
