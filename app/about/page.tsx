@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 // =========================
-// SkillBar Component with animation controlled by inView prop
+// SkillBar Component
 // =========================
 const SkillBar = ({
   name,
@@ -79,7 +79,6 @@ const educationData = [
 // About Component
 // =========================
 function About() {
-  // Detect when Skills section is in view
   const { ref: skillsRef, inView: skillsInView } = useInView({
     triggerOnce: true,
     threshold: 0.3,
@@ -99,7 +98,6 @@ function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-40 items-center">
-            {/* === Text Content === */}
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold mb-6">
                 I catch bugs early using QA.
@@ -126,7 +124,6 @@ function About() {
               </a>
             </div>
 
-            {/* === Image Content === */}
             <div className="relative w-full max-w-md mx-auto md:mx-0">
               <Image
                 src="/images/about/about1.jpg"
@@ -141,35 +138,52 @@ function About() {
 
         {/* === EDUCATION SECTION === */}
         <section className="mb-20">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold mb-4">
               EDUCATION
             </h2>
             <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {educationData.map((item, index) => (
-              <div
-                key={index}
-                className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
-              >
-                <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                  {item.year}
-                </div>
-                <div className="pt-10">
-                  <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                    {item.subtitle}
-                  </p>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+            {educationData.map((item, index) => {
+              const [ref, inView] = useInView({
+                triggerOnce: true,
+                threshold: 0.2,
+              });
+
+              return (
+                <motion.div
+                  ref={ref}
+                  key={index}
+                  className="relative group rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                >
+                  <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                    {item.year}
+                  </div>
+                  <div className="pt-10">
+                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      {item.subtitle}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
@@ -194,7 +208,6 @@ function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* === Development Skills === */}
             <div>
               <h3 className="text-xl font-semibold text-[#ff014f] mb-4">
                 Development Skills
@@ -209,7 +222,6 @@ function About() {
               <SkillBar name="Tailwind CSS" percent="80%" inView={skillsInView} />
             </div>
 
-            {/* === QA Skills === */}
             <div>
               <h3 className="text-xl font-semibold text-[#ff014f] mb-4">
                 QA Skills

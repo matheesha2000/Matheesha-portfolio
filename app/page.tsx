@@ -122,6 +122,39 @@ const projects = [
 
 const categories = ["Featured", "All", "Dev", "QA"];
 
+// === New EducationCard component ===
+function EducationCard({
+  item,
+  index,
+}: {
+  item: typeof educationData[0];
+  index: number;
+}) {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
+    >
+      <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+        {item.year}
+      </div>
+      <div className="pt-10">
+        <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">{item.title}</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Home() {
   // State and hooks
   const [index, setIndex] = useState(0);
@@ -143,8 +176,19 @@ export default function Home() {
 
   // Loader effect
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
+    if (!hasVisited) {
+      // First time entering the website
+      setLoading(true);
+      sessionStorage.setItem("hasVisited", "true");
+
+      const timer = setTimeout(() => setLoading(false), 1000); // Adjust timing if needed
+      return () => clearTimeout(timer);
+    } else {
+      // Subsequent page views in the same session
+      setLoading(false);
+    }
   }, []);
 
   // Initialize AOS for animations
@@ -159,7 +203,9 @@ export default function Home() {
     const speed = isDeleting ? 50 : 100;
     const timeout = setTimeout(() => {
       setText((prev) =>
-        isDeleting ? currentTitle.substring(0, prev.length - 1) : currentTitle.substring(0, prev.length + 1)
+        isDeleting
+          ? currentTitle.substring(0, prev.length - 1)
+          : currentTitle.substring(0, prev.length + 1)
       );
       if (!isDeleting && text === currentTitle) {
         setTimeout(() => setIsDeleting(true), 1000);
@@ -208,8 +254,8 @@ export default function Home() {
             <FloatingCircles />
 
             {/* === HERO SECTION === */}
-            <section className="container mx-auto px-4 py-16 sm:py-20 lg:mt-20 relative z-10">
-              <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <section className="container mx-auto px-2 py-16 sm:py-20 lg:mt-20 relative z-10">
+              <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-10">
                 <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-[320px] sm:h-[400px] mx-auto">
                   {images.map((src, i) => (
                     <Image
@@ -240,7 +286,7 @@ export default function Home() {
 
                   <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
                     <a
-                      href="#about"
+                      href="/about"
                       className="px-6 py-3 text-lg bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
                     >
                       About Me
@@ -288,7 +334,7 @@ export default function Home() {
             {/* === ABOUT SECTION === */}
             <section
               id="about"
-              className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white relative z-10"
+              className="px-4 sm:px-6 lg:px-8 py-12  max-w-6xl mx-auto text-gray-800 dark:text-white relative z-10"
             >
               <div className="text-center mb-14">
                 <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold">ABOUT ME</h2>
@@ -338,21 +384,10 @@ export default function Home() {
                 <h2 className="text-[#ff014f] text-4xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
                 <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
               </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {educationData.map((item, index) => (
-                  <div
-                    key={index}
-                    className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
-                  >
-                    <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                      {item.year}
-                    </div>
-                    <div className="pt-10">
-                      <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">{item.title}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
-                    </div>
-                  </div>
+                  <EducationCard key={index} item={item} index={index} />
                 ))}
               </div>
             </section>
@@ -403,7 +438,7 @@ export default function Home() {
             </motion.section>
 
             {/* === PROJECTS SECTION  === */}
-            <section className="portfolio__section section--padding pb-20">
+            <section id="projects" className="portfolio__section section--padding pb-20 ">
               <div className="text-center py-10">
                 <h2 className="text-[#ff014f] text-4xl font-extrabold mb-3">PROJECTS</h2>
                 <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
