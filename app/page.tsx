@@ -263,7 +263,7 @@ export default function Home() {
                       src={src}
                       alt={`Profile ${i + 1}`}
                       fill
-                      className={`absolute inset-0 object-cover rounded-3xl shadow-lg transition-opacity duration-1000 ease-in-out ${
+                      className={`absolute inset-0 object-cover rounded-3xl  shadow-lg transition-opacity duration-1000 ease-in-out ${
                         i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
                       }`}
                       priority={i === imgIndex}
@@ -447,7 +447,7 @@ export default function Home() {
               </div>
 
               {/* Category Tabs */}
-              <div className="flex justify-center gap-6 mb-12">
+              <div className="flex sm:px-6 lg:px-8 justify-center gap-6 mb-12">
                 {categories.map((cat) => (
                   <button
                     key={cat}
