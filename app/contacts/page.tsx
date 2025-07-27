@@ -143,17 +143,17 @@ export default function Contact() {
             {[
               {
                 title: "Call Me",
-                content: ["+880254615566", "+880254615567"],
+                content: ["+713493712", "+764753712"],
                 icon: "📞",
               },
               {
                 title: "Email",
-                content: ["info@example.com"],
+                content: ["pamodmatheesha2020@gmail.com"],
                 icon: "✉️",
               },
               {
                 title: "Address",
-                content: ["20, 25 Dhaka,0123", "Ratrba baraj,20"],
+                content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
                 icon: "📍",
               },
             ].map((item, index) => (

@@ -1,8 +1,9 @@
-// pages/api/contact.js
+// pages/api/contact.ts
 
+import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
@@ -23,14 +24,14 @@ export default async function handler(req, res) {
     });
 
     await transporter.sendMail({
-      from: email,
-      to: process.env.TO_EMAIL,
-      subject: `New Message From ${name}`,
+      from: `"${name}" <${process.env.EMAIL_USER}>`, // must be your verified Gmail
+      to: process.env.TO_EMAIL,                      // receiver email
+      subject: `New Message from ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
     return res.status(200).json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error sending email:", error);
     return res.status(500).json({ success: false, message: error.message });
   }
