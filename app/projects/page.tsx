@@ -42,7 +42,7 @@ const projects: ProjectType[] = [
   {
     name: "Greenie",
     description: "Eco-friendly lifestyle app for green living.",
-    image: "/images/projects/greenie.jpg",
+    image: "/images/projects/greenie/greenie.jpg",
     categories: ["Featured", "Dev"],
     detailedDescription:
       "Greenie is a web-based platform that promotes sustainable living through gamification. It encourages users to adopt eco-friendly habits—such as recycling, reducing waste, and conserving resources—by turning them into fun, interactive challenges. Users earn points, unlock rewards, and climb leaderboards as they complete tasks, making sustainability engaging, rewarding, and easy to stick with.",
@@ -85,7 +85,7 @@ const projects: ProjectType[] = [
   {
     name: "Swag Labs Automation Testing",
     description: "Automated UI tests for the Swag Labs e-commerce site.",
-    image: "/images/projects/swaglabs.png",
+    image: "/images/projects/swaglabs/swaglabs.png",
     categories: ["Featured", "QA"],
     detailedDescription:
       "Developed automated UI tests using Selenium and TestNG to verify critical user flows on the Swag Labs e-commerce platform, including login, product selection, cart, and checkout. Added assertions to ensure UI accuracy and reported bugs for quick resolution.",
@@ -101,7 +101,7 @@ const projects: ProjectType[] = [
   {
     name: "ClearSky Testing",
     description: "QA solution for weather-based web services.",
-    image: "/images/projects/clearsky.png",
+    image: "/images/projects/clearsky/clearsky.png",
     categories: ["QA"],
     detailedDescription:
       "ClearSky offers manual testing and development for weather forecasting APIs and UI components. We validate API responses, data accuracy, and user interfaces through real-world scenario testing, catching issues automation may miss. By collaborating with developers, we ensure weather data, visualizations, and backend logic are accurate, reliable, and deployment-ready.",
