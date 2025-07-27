@@ -24,15 +24,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     await transporter.sendMail({
-      from: `"${name}" <${process.env.EMAIL_USER}>`, // must be your verified Gmail
-      to: process.env.TO_EMAIL,                      // receiver email
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
+      to: process.env.TO_EMAIL,
       subject: `New Message from ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
     return res.status(200).json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending email:", error);
-    return res.status(500).json({ success: false, message: error.message });
+
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+    return res.status(500).json({ success: false, message: errorMessage });
   }
 }
