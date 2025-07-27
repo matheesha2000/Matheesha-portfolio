@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
+import Footer from "@/components/Footer";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -49,8 +50,12 @@ export default function Contact() {
   };
 
   return (
+
+    <>
+
+    <Navbar />
     <main className="main__content_wrapper inner__page--content md:py-20 bg-black text-gray-900 dark:text-white">
-      <Navbar />
+
 
       {/* Heading */}
       <section className="text-center py-16">
@@ -190,5 +195,11 @@ export default function Contact() {
         </motion.div>
       </section>
     </main>
+
+    <Footer />
+
+  </>
+
+    
   );
 }

@@ -9,6 +9,7 @@ import { FaDotCircle, FaChevronLeft, FaChevronRight, FaArrowRight } from "react-
 import { useInView } from "react-intersection-observer";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Footer from "@/components/Footer";
 
 // === Constants ===
 const titles = ["Software Quality Assurance Engineer", "Full Stack Web Developer"];
@@ -408,6 +409,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Featured");
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [contactLoading, setContactLoading] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
 
   const { ref: skillsRef, inView: skillsInView } = useInView({
     triggerOnce: true,
@@ -419,6 +423,7 @@ export default function Home() {
       ? projects
       : projects.filter((p) => p.categories.includes(selectedCategory));
 
+  // Loader effect
   useEffect(() => {
     const hasVisited = sessionStorage.getItem("hasVisited");
 
@@ -432,10 +437,12 @@ export default function Home() {
     }
   }, []);
 
+  // Initialize AOS for animations
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
 
+  // Typing effect for hero titles
   useEffect(() => {
     if (loading) return;
     const currentTitle = titles[index];
@@ -456,6 +463,7 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, index, loading]);
 
+  // Image switching effect
   useEffect(() => {
     if (loading) return;
     const interval = setInterval(() => {
@@ -464,6 +472,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [loading]);
 
+  // Handle escape key for project modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedProject(null);
@@ -471,6 +480,40 @@ export default function Home() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  // Contact form handlers
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setContactLoading(true);
+    setStatus(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Failed to send message.");
+      }
+    } catch {
+      setStatus("Something went wrong.");
+    }
+
+    setContactLoading(false);
+  };
 
   return (
     <>
@@ -499,10 +542,10 @@ export default function Home() {
           >
             <FloatingCircles />
 
-            {/* Hero Section */}
-            <section className="container mx-auto px-2 py-16 sm:py-20 lg:mt-20 relative z-10">
-              <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-10">
-                <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-[320px] sm:h-[400px] mx-auto">
+            {/* === HERO SECTION === */}
+            <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:mt-20 relative z-10">
+              <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-5">
+                <div className="relative w-[320px] max-w-xs sm:max-w-sm md:max-w-md h-[400px] sm:h-[400px] mx-auto">
                   {images.map((src, i) => (
                     <Image
                       key={i}
@@ -532,10 +575,10 @@ export default function Home() {
 
                   <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
                     <a
-                      href="/about"
+                      href="#contact"
                       className="px-6 py-3 text-lg bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
                     >
-                      About Me
+                      Contact Me
                     </a>
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
@@ -577,7 +620,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* About Section */}
+            {/* === ABOUT SECTION === */}
             <section
               id="about"
               className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white relative z-10"
@@ -624,7 +667,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* Education Section */}
+            {/* === EDUCATION SECTION === */}
             <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white">
               <div className="text-center mb-12">
                 <h2 className="text-[#ff014f] text-4xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
@@ -638,7 +681,7 @@ export default function Home() {
               </div>
             </section>
 
-            {/* Skills Section */}
+            {/* === SKILLS SECTION === */}
             <motion.section
               ref={skillsRef}
               className="mb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-gray-800 dark:text-white"
@@ -683,8 +726,8 @@ export default function Home() {
               </div>
             </motion.section>
 
-            {/* Projects Section */}
-            <section id="projects" className="px-4 sm:px-6 lg:px-8 py-20 max-w-7xl mx-auto">
+            {/* === PROJECTS SECTION === */}
+            <section id="projects" className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
               <div className="text-center mb-10">
                 <h1 className="text-4xl font-extrabold mb-2 text-[#ff014f]">PROJECTS</h1>
                 <h2 className="text-2xl font-semibold">
@@ -757,9 +800,147 @@ export default function Home() {
                 />
               )}
             </section>
+
+            {/* === CONTACT SECTION === */}
+            <section id="contact" className="section--padding px-4 sm:px-6 lg:px-8 py-8  bg-black">
+              <div className="text-center py-16">
+                <motion.h1
+                  className="text-4xl font-extrabold text-[#ff014f] mb-2"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  CONNECT ME
+                </motion.h1>
+                <motion.h2
+                  className="text-xl font-semibold text-gray-600 dark:text-gray-300"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  Let’s connect! Fill out the form and I’ll get back to you shortly.
+                </motion.h2>
+              </div>
+
+              <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-start">
+                {/* Left Side – Form */}
+                <motion.div
+                  className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-md"
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="text-4xl font-bold text-[#ff014f] mb-4">Get In Touch</h2>
+                  <p className="text-gray-600 text-lg dark:text-gray-300 mb-8">
+                    Feel free to reach out for collaborations, questions, or just to say hi—I&apos;m always up for a good conversation.
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                      />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Your email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                      />
+                    </div>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      placeholder="Message"
+                      required
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                    ></textarea>
+                    <button
+                      type="submit"
+                      disabled={contactLoading}
+                      className="bg-[#ff014f] text-white px-6 py-3 rounded-md hover:opacity-90 transition font-semibold"
+                    >
+                      {contactLoading ? "Sending..." : "Send Message"}
+                    </button>
+
+                    {status && (
+                      <p className="text-sm mt-2 text-gray-600 dark:text-gray-300">{status}</p>
+                    )}
+                  </form>
+                </motion.div>
+
+                {/* Right Side – Contact Info */}
+                <motion.div
+                  className="space-y-8"
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  {[
+                    {
+                      title: "Call Me",
+                      content: ["+713493712", "+764753712"],
+                      icon: "📞",
+                    },
+                    {
+                      title: "Email",
+                      content: ["pamodmatheesha2020@gmail.com"],
+                      icon: "✉️",
+                    },
+                    {
+                      title: "Address",
+                      content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
+                      icon: "📍",
+                    },
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                      <span className="text-2xl text-[#ff014f]">{item.icon}</span>
+                      <div>
+                        <h3 className="text-2xl font-semibold">{item.title}</h3>
+                        <div className="text-lg text-gray-600 dark:text-gray-300 space-y-1">
+                          {item.content.map((line, i) => (
+                            <p key={i}>{line}</p>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Map */}
+              <motion.div
+                className="mt-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                viewport={{ once: true }}
+              >
+                <iframe
+                  className="w-full h-96 sm:px-6 lg:px-8 px-4 rounded-md border-0"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7887.465355142307!2d-0.13384360843222626!3d51.4876034467734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760532743b90e1%3A0x790260718555a20c!2sU.S.%20Embassy%2C%20London!5e0!3m2!1sen!2sbd!4v1632035375945!5m2!1sen!2sbd"
+                  loading="lazy"
+                  allowFullScreen
+                  title="Location map"
+                ></iframe>
+              </motion.div>
+            </section>
           </motion.main>
         )}
       </AnimatePresence>
+      <Footer />
     </>
   );
 }

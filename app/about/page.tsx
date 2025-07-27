@@ -5,6 +5,7 @@ import { FaDotCircle } from "react-icons/fa";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Footer from "@/components/Footer";
 
 // =========================
 // SkillBar Component
@@ -238,6 +239,7 @@ function About() {
           </div>
         </motion.section>
       </main>
+      <Footer />
     </>
   );
 }
