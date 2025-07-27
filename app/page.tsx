@@ -155,7 +155,7 @@ const projects: ProjectType[] = [
     image: "/images/projects/growbox.jpg",
     categories: ["Dev"],
     detailedDescription:
-      "This system helps users monitor and manage their gardens through features like automated watering schedules, environmental tracking, and plant care reminders. It's designed to simplify gardening, improve plant health, and support users with timely, intelligent guidance.",
+      "This system helps users monitor and manage their gardens through features like automated watering schedules, environmental tracking, and plant care reminders. It&apos;s designed to simplify gardening, improve plant health, and support users with timely, intelligent guidance.",
     moreImages: ["/images/projects/growbox.jpg"],
     techStack: ["HTML", "CSS", "JavaScript", "MySQL", "PHP"],
     github: "https://github.com/wtgsoysa/growBox2.0",
@@ -518,7 +518,7 @@ export default function Home() {
                 </div>
 
                 <div className="text-center lg:text-left max-w-3xl">
-                  <span className="block text-[#ff014f] text-xl sm:text-2xl font-semibold italic mb-2">HELLO I'M</span>
+                  <span className="block text-[#ff014f] text-xl sm:text-2xl font-semibold italic mb-2">HELLO I&apos;M</span>
                   <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[#212428] dark:text-white">
                     Matheesha Kalatuwawa.
                   </h1>
@@ -526,7 +526,7 @@ export default function Home() {
                     {text}
                   </h2>
                   <p className="text-base sm:text-lg text-gray-700 dark:text-gray-400 mb-6">
-                    I'm a third-year Software Engineering undergraduate at the University of Plymouth, focused on
+                    I&apos;m a third-year Software Engineering undergraduate at the University of Plymouth, focused on
                     Software Quality Assurance, Testing, and Web Development.
                   </p>
 
@@ -684,10 +684,10 @@ export default function Home() {
             </motion.section>
 
             {/* Projects Section */}
-            <section id="projects" className="px-4 sm:px-6 lg:px-8  max-w-7xl mx-auto">
+            <section id="projects" className="px-4 sm:px-6 lg:px-8 py-20 max-w-7xl mx-auto">
               <div className="text-center mb-10">
                 <h1 className="text-4xl font-extrabold mb-2 text-[#ff014f]">PROJECTS</h1>
-                <h2 className="text-2xl font-semibold mb-20">
+                <h2 className="text-2xl font-semibold">
                   Some of my latest featured and QA projects
                 </h2>
               </div>
@@ -709,11 +709,11 @@ export default function Home() {
               </div>
 
               {filteredProjects.length === 0 ? (
-                <p className="text-center text-gray-500 text-sm sm:text-base px-4 sm:px-0 ">
-                  No projects found for "{selectedCategory}" category.
+                <p className="text-center text-gray-500">
+                  No projects found for &quot;{selectedCategory}&quot; category.
                 </p>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                   {filteredProjects.map((project, index) => (
                     <div
                       key={index}
@@ -721,7 +721,7 @@ export default function Home() {
                       data-aos-delay={`${index * 100}`}
                       className="group rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900 relative"
                     >
-                      <div className="relative h-48 w-full overflow-hidden ">
+                      <div className="relative h-48 w-full overflow-hidden">
                         <Image
                           src={project.image}
                           alt={project.name}
