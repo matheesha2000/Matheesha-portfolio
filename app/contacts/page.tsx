@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -65,15 +66,15 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          CONNECT ME
+          CONTACT ME
         </motion.h1>
         <motion.h2
-          className="text-xl font-medium text-gray-600 dark:text-gray-300"
+          className="text-xl font-semibold text-gray-600 dark:text-gray-300"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          CONTACT <span className="text-[#ff014f] font-bold">ME</span>
+         Let’s connect! Fill out the form and I’ll get back to you shortly.
         </motion.h2>
       </section>
 
@@ -147,20 +148,20 @@ export default function Contact() {
           >
             {[
               {
-                title: "Call Me",
-                content: ["+713493712", "+764753712"],
-                icon: "📞",
-              },
-              {
-                title: "Email",
-                content: ["pamodmatheesha2020@gmail.com"],
-                icon: "✉️",
-              },
-              {
-                title: "Address",
-                content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
-                icon: "📍",
-              },
+    title: "Call Me",
+    content: ["+713493712", "+764753712"],
+    icon: <FaPhone />,
+  },
+  {
+    title: "Email",
+    content: ["pamodmatheesha2020@gmail.com"],
+    icon: <FaEnvelope />,
+  },
+  {
+    title: "Address",
+    content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
+    icon: <FaMapMarkerAlt />,
+  },
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-4">
                 <span className="text-2xl text-[#ff014f]">{item.icon}</span>

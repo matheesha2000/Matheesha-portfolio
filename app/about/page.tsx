@@ -153,7 +153,7 @@ function About() {
               </ul>
 
               <a
-                href="#"
+                href="/contacts"
                 className="inline-block mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-base font-semibold hover:opacity-90 transition"
               >
                 Contact Me

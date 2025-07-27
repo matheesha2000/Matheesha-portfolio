@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu */}
         {menuOpen && (
           <div className="lg:hidden px-4 pb-4 space-y-2 bg-[#ffffff] dark:bg-[#1a1a1a]">
-            {["home", "about", "projects", "contact"].map((section) => (
+            {["home", "about", "projects", "contacts"].map((section) => (
               <Link
                 key={section}
                 href={section === "home" ? "/" : `/${section}`}

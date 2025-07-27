@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import FloatingCircles from "@/components/FloatingCircles";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaDotCircle, FaChevronLeft, FaChevronRight, FaArrowRight } from "react-icons/fa";
+import { FaDotCircle, FaChevronLeft, FaChevronRight, FaArrowRight, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -647,7 +647,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href="#contact"
+                    href="/contacts"
                     className="inline-block mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-base font-semibold hover:opacity-90 transition"
                   >
                     Contact Me
@@ -810,7 +810,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  CONNECT ME
+                  CONTACT ME
                 </motion.h1>
                 <motion.h2
                   className="text-xl font-semibold text-gray-600 dark:text-gray-300"
@@ -889,21 +889,21 @@ export default function Home() {
                   transition={{ duration: 0.6 }}
                 >
                   {[
-                    {
-                      title: "Call Me",
-                      content: ["+713493712", "+764753712"],
-                      icon: "📞",
-                    },
-                    {
-                      title: "Email",
-                      content: ["pamodmatheesha2020@gmail.com"],
-                      icon: "✉️",
-                    },
-                    {
-                      title: "Address",
-                      content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
-                      icon: "📍",
-                    },
+                      {
+    title: "Call Me",
+    content: ["+713493712", "+764753712"],
+    icon: <FaPhone />,
+  },
+  {
+    title: "Email",
+    content: ["pamodmatheesha2020@gmail.com"],
+    icon: <FaEnvelope />,
+  },
+  {
+    title: "Address",
+    content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
+    icon: <FaMapMarkerAlt />,
+  },
                   ].map((item, index) => (
                     <div key={index} className="flex items-start gap-4">
                       <span className="text-2xl text-[#ff014f]">{item.icon}</span>
