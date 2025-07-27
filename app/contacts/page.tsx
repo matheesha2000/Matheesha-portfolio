@@ -7,7 +7,6 @@ import "aos/dist/aos.css";
 import { motion } from "framer-motion";
 
 export default function Contact() {
-  // status can be null or a string message
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -16,7 +15,6 @@ export default function Contact() {
     AOS.init({ duration: 800, once: true });
   }, []);
 
-  // Event type for inputs and textarea
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -24,7 +22,6 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Form submit event type
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -44,7 +41,7 @@ export default function Contact() {
       } else {
         setStatus("Failed to send message.");
       }
-    } catch (error) {
+    } catch {
       setStatus("Something went wrong.");
     }
 
@@ -88,7 +85,7 @@ export default function Contact() {
           >
             <h2 className="text-4xl font-bold text-[#ff014f] mb-4">Get In Touch</h2>
             <p className="text-gray-600 text-lg dark:text-gray-300 mb-8">
-              Feel free to reach out for collaborations, questions, or just to say hi—I'm always up for a good conversation.
+              Feel free to reach out for collaborations, questions, or just to say hi—I&apos;m always up for a good conversation.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
