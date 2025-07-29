@@ -13,7 +13,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#1a1a1a] dark:bg-gray-900 text-white py-12 mt-5 px-4 sm:px-6 lg:px-8 relative">
+    <footer className="bg-[#1a1a1a] dark:bg-gray-900 text-white py-12  px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">

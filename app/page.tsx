@@ -19,9 +19,9 @@ const personalInfos = [
   { label: "First Name", value: "Matheesha" },
   { label: "Last Name", value: "Kalatuwawa" },
   { label: "Address", value: "Pothuhera" },
-  { label: "Phone", value: "+764753712" },
+  { label: "Phone", value: "+713493712" },
   { label: "Age", value: "25 Years" },
-  { label: "Email", value: "matheeshakalatuwawa@gmail.com" },
+  { label: "Email", value: "pamodmatheesha2020@gmail.com" },
   { label: "Nationality", value: "Sri Lankan" },
   { label: "Languages", value: "Sinhala, English" },
 ];
@@ -465,11 +465,9 @@ export default function Home() {
 
   // Image switching effect
   useEffect(() => {
-    if (loading) return;
-    const interval = setInterval(() => {
-      setImgIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    if (!loading) {
+      setImgIndex(0); // Show only the first image when loading is done
+    }
   }, [loading]);
 
   // Handle escape key for project modal
@@ -519,427 +517,481 @@ export default function Home() {
     <>
       <Navbar />
 
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center h-screen bg-white dark:bg-[#1a1a1a]"
-          >
-            <div className="w-16 h-16 border-4 border-t-[#ff014f] border-[#ddd] rounded-full animate-spin"></div>
-          </motion.div>
-        ) : (
-          <motion.main
-            key="content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins overflow-hidden"
-          >
-            <FloatingCircles />
+      <div className="main__content_wrapper inner__page--content mt-10 lg:mt-20 bg-black text-gray-900 dark:text-white">
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <motion.div
+              key="loader"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center justify-center h-screen bg-white dark:bg-[#1a1a1a]"
+            >
+              <div className="w-16 h-16 border-4 border-t-[#ff014f] border-[#ddd] rounded-full animate-spin"></div>
+            </motion.div>
+          ) : (
+            <motion.main
+              key="content"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="relative bg-cover bg-center bg-no-repeat dark:bg-[url('/assets/img/hero/hero-bg-img-dark.png')] font-poppins overflow-hidden"
+            >
+              <FloatingCircles />
 
-            {/* === HERO SECTION === */}
-            <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:mt-20 relative z-10">
-              <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-5">
-                <div className="relative w-[320px] max-w-xs sm:max-w-sm md:max-w-md h-[400px] sm:h-[400px] mx-auto">
-                  {images.map((src, i) => (
-                    <Image
-                      key={i}
-                      src={src}
-                      alt={`Profile ${i + 1}`}
-                      fill
-                      className={`absolute inset-0 object-cover rounded-3xl shadow-lg transition-opacity duration-1000 ease-in-out ${
-                        i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                      }`}
-                      priority={i === imgIndex}
-                    />
-                  ))}
-                </div>
+              {/* === HERO SECTION === */}
+              <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
+                  <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-[300px] sm:h-[400px] mx-auto">
+                    {images.map((src, i) => (
+                      <Image
+                        key={i}
+                        src={src}
+                        alt={`Profile ${i + 1}`}
+                        fill
+                        className={`absolute inset-0 object-cover rounded-3xl shadow-lg transition-opacity duration-1000 ease-in-out ${
+                          i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                        }`}
+                        priority={i === imgIndex}
+                      />
+                    ))}
+                  </div>
 
-                <div className="text-center lg:text-left max-w-3xl">
-                  <span className="block text-[#ff014f] text-xl sm:text-2xl font-semibold italic mb-2">HELLO I&apos;M</span>
-                  <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-[#212428] dark:text-white">
-                    Matheesha Kalatuwawa.
-                  </h1>
-                  <h2 className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-4 min-h-[40px]">
-                    {text}
-                  </h2>
-                  <p className="text-base sm:text-lg text-gray-700 dark:text-gray-400 mb-6">
-                    I&apos;m a third-year Software Engineering undergraduate at the University of Plymouth, focused on
-                    Software Quality Assurance, Testing, and Web Development.
-                  </p>
+                  <div className="text-center lg:text-left max-w-3xl">
+                    <span className="block text-[#ff014f] text-lg sm:text-2xl font-semibold italic mb-2">HELLO I&apos;M</span>
+                    <h1 className="text-3xl sm:text-5xl font-bold mb-3 text-[#212428] dark:text-white">
+                      Matheesha Kalatuwawa.
+                    </h1>
+                    <h2 className="text-xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-4 min-h-[40px]">
+                      {text}
+                    </h2>
+                    <p className="text-sm sm:text-lg text-gray-700 dark:text-gray-400 mb-6">
+                      I&apos;m a third-year Software Engineering undergraduate at the University of Plymouth, focused on
+                      Software Quality Assurance, Testing, and Web Development.
+                    </p>
 
-                  <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
-                    <a
-                      href="#contact"
-                      className="px-6 py-3 text-lg bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
-                    >
-                      Contact Me
-                    </a>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
+                    <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-12">
                       <a
-                        href="https://www.linkedin.com/in/matheesha-kalatuwawa/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                        href="#contact"
+                        className="px-6 py-3 text-sm sm:text-lg bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
                       >
-                        <i className="ri-linkedin-fill" />
+                        Contact Me
                       </a>
-                      <a
-                        href="https://github.com/matheesha2000"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                      >
-                        <i className="ri-github-fill" />
-                      </a>
-                      <a
-                        href="https://web.facebook.com/matheesha.kalatuwawa.9"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                      >
-                        <i className="ri-facebook-fill" />
-                      </a>
-                      <a
-                        href="https://www.instagram.com/matheeesha.__/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-10 h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
-                      >
-                        <i className="ri-instagram-fill" />
-                      </a>
+                      <div className="flex flex-wrap items-center justify-center gap-3">
+                        <span className="text-sm sm:text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
+                        <a
+                          href="https://www.linkedin.com/in/matheesha-kalatuwawa/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                        >
+                          <i className="ri-linkedin-fill text-sm sm:text-base" />
+                        </a>
+                        <a
+                          href="https://github.com/matheesha2000"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                        >
+                          <i className="ri-github-fill text-sm sm:text-base" />
+                        </a>
+                        <a
+                          href="https://web.facebook.com/matheesha.kalatuwawa.9"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                        >
+                          <i className="ri-facebook-fill text-sm sm:text-base" />
+                        </a>
+                        <a
+                          href="https://www.instagram.com/matheeesha.__/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-800 border-2 rounded-full dark:text-white hover:text-[#ff014f]"
+                        >
+                          <i className="ri-instagram-fill text-sm sm:text-base" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* === ABOUT SECTION === */}
-            <section
-              id="about"
-              className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white relative z-10"
-            >
-              <div className="text-center mb-14">
-                <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold">ABOUT ME</h2>
-              </div>
+              {/* === ABOUT SECTION === */}
+              <div className="bg-black container mx-auto px-6lg:py-24 ">
+              <section id="about" className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white relative z-10">
+                <motion.div
+                  className="text-center mb-12"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold">ABOUT ME</h2>
+                </motion.div>
 
-              <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-y-12 gap-x-20 items-center">
-                {/* Text Content */}
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-bold mb-6 leading-snug">
-                    I catch bugs early using QA.
-                  </h1>
-                  <h3 className="text-base sm:text-lg font-semibold text-[#ff014f] mb-4">PERSONAL INFOS:</h3>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base">
-                    {personalInfos.map((item, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <FaDotCircle className="text-[#ff014f] text-sm flex-shrink-0" />
-                        <span>
-                          {item.label}: {item.value}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="/contacts"
-                    className="inline-block mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-base font-semibold hover:opacity-90 transition"
-                  >
-                    Contact Me
-                  </a>
-                </div>
-
-                {/* Image */}
-                <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-                  <Image
-                    src="/images/about/about1.jpg"
-                    alt="About"
-                    width={500}
-                    height={500}
-                    className="rounded-lg transition duration-500 hover:scale-105 object-cover w-full h-auto"
-                  />
-                </div>
-              </div>
-            </section>
-
-            {/* === EDUCATION SECTION === */}
-            <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white">
-              <div className="text-center mb-12">
-                <h2 className="text-[#ff014f] text-4xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
-                <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {educationData.map((item, index) => (
-                  <EducationCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </section>
-
-            {/* === SKILLS SECTION === */}
-            <motion.section
-              ref={skillsRef}
-              className="mb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-gray-800 dark:text-white"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
-                <div className="w-full max-w-full text-center md:text-left">
-                  <h2 className="text-[#ff014f] text-4xl text-center font-extrabold mb-6">SKILLS</h2>
-                  <h1 className="text-2xl sm:text-3xl font-bold whitespace-normal sm:whitespace-nowrap">
-                    My QA and Development Skillset Expertise
-                  </h1>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                {/* Development Skills */}
-                <div>
-                  <h3 className="text-xl font-semibold text-[#ff014f] mb-4">Development Skills</h3>
-                  <SkillBar name="HTML/CSS" percent="100%" inView={skillsInView} />
-                  <SkillBar name="React.js" percent="90%" inView={skillsInView} />
-                  <SkillBar name="JavaScript" percent="75%" inView={skillsInView} />
-                  <SkillBar name="Java" percent="70%" inView={skillsInView} />
-                  <SkillBar name="MongoDB" percent="70%" inView={skillsInView} />
-                  <SkillBar name="Node.js" percent="60%" inView={skillsInView} />
-                  <SkillBar name="Next.js" percent="65%" inView={skillsInView} />
-                  <SkillBar name="Tailwind CSS" percent="80%" inView={skillsInView} />
-                </div>
-
-                {/* QA Skills */}
-                <div>
-                  <h3 className="text-xl font-semibold text-[#ff014f] mb-4">QA Skills</h3>
-                  <SkillBar name="Manual Testing" percent="90%" inView={skillsInView} />
-                  <SkillBar name="Automation Testing" percent="70%" inView={skillsInView} />
-                  <SkillBar name="Selenium" percent="65%" inView={skillsInView} />
-                  <SkillBar name="Postman" percent="75%" inView={skillsInView} />
-                  <SkillBar name="JMeter" percent="60%" inView={skillsInView} />
-                  <SkillBar name="API Testing" percent="60%" inView={skillsInView} />
-                </div>
-              </div>
-            </motion.section>
-
-            {/* === PROJECTS SECTION === */}
-            <section id="projects" className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
-              <div className="text-center mb-10">
-                <h1 className="text-4xl font-extrabold mb-2 text-[#ff014f]">PROJECTS</h1>
-                <h2 className="text-2xl font-semibold">
-                  Some of my latest featured and QA projects
-                </h2>
-              </div>
-
-              <div className="flex justify-center gap-6 flex-wrap mb-10">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-6 py-2 rounded-full border-2 font-semibold transition ${
-                      selectedCategory === cat
-                        ? "border-[#ff014f] bg-[#ff014f] text-white"
-                        : "border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-300 hover:border-[#ff014f]"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-
-              {filteredProjects.length === 0 ? (
-                <p className="text-center text-gray-500">
-                  No projects found for &quot;{selectedCategory}&quot; category.
-                </p>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                  {filteredProjects.map((project, index) => (
-                    <div
-                      key={index}
-                      data-aos="fade-up"
-                      data-aos-delay={`${index * 100}`}
-                      className="group rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900 relative"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 lg:gap-x-20 items-center">
+                  <div>
+                    <motion.h1
+                      className="text-xl sm:text-3xl font-bold mb-6 leading-snug"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
                     >
-                      <div className="relative h-48 w-full overflow-hidden">
-                        <Image
-                          src={project.image}
-                          alt={project.name}
-                          fill
-                          className="object-cover rounded-t-xl group-hover:scale-110 transition-transform duration-500"
-                          priority={index < 3}
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-bold text-lg mb-2 text-[#ff014f]">
-                          {project.name}
-                        </h3>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          {project.description}
-                        </p>
-                        <button
-                          onClick={() => setSelectedProject(project)}
-                          className="mt-4 text-[#ff014f] font-semibold flex items-center gap-2 hover:text-[#d60036] transition-all duration-300 group"
+                      I catch bugs early using QA.
+                    </motion.h1>
+
+                    <motion.h3
+                      className="text-base sm:text-lg font-semibold text-[#ff014f] mb-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.6 }}
+                    >
+                      PERSONAL INFOS:
+                    </motion.h3>
+
+                    <motion.ul
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm sm:text-base"
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        hidden: {},
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.15,
+                          },
+                        },
+                      }}
+                    >
+                      {personalInfos.map((item, index) => (
+                        <motion.li 
+                          key={index} 
+                          className="flex items-center gap-3"
+                          variants={{
+                            hidden: { opacity: 0, x: -20 },
+                            visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                          }}
                         >
-                          View More 
-                          <FaArrowRight className="transform transition-transform duration-300 group-hover:translate-x-1" />
-                        </button>
-                      </div>
-                    </div>
+                          <FaDotCircle className="text-[#ff014f] text-xs sm:text-sm flex-shrink-0" />
+                          <span>{item.label}: {item.value}</span>
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+
+                    <motion.a
+                      href="/contacts"
+                      className="inline-block mt-6 sm:mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-sm sm:text-base font-semibold hover:opacity-90 transition transform origin-center"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1.5, duration: 0.5 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      Contact Me
+                    </motion.a>
+                  </div>
+
+                  <motion.div
+                    className="relative w-full max-w-xl mx-auto md:mx-0"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.8, duration: 0.8 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <Image
+                      src="/images/about/about1.jpg"
+                      alt="About"
+                      width={500}
+                      height={500}
+                      className="rounded-lg transition duration-500 object-cover w-full h-75"
+                    />
+                  </motion.div>
+                </div>
+              </section>
+
+              {/* === EDUCATION SECTION === */}
+              <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white">
+                <motion.div
+                  className="text-center mb-12"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold mb-2 sm:mb-4">EDUCATION</h2>
+                  <h1 className="text-xl sm:text-2xl font-bold">Resume of Education</h1>
+                </motion.div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {educationData.map((item, index) => (
+                    <EducationCard key={index} item={item} index={index} />
                   ))}
                 </div>
-              )}
+              </section>
 
-              {selectedProject && (
-                <ProjectDetails
-                  project={selectedProject}
-                  onClose={() => setSelectedProject(null)}
-                />
-              )}
-            </section>
-
-            {/* === CONTACT SECTION === */}
-            <section id="contact" className="section--padding px-4 sm:px-6 lg:px-8 py-8  bg-black">
-              <div className="text-center py-16">
-                <motion.h1
-                  className="text-4xl font-extrabold text-[#ff014f] mb-2"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  CONTACT ME
-                </motion.h1>
-                <motion.h2
-                  className="text-xl font-semibold text-gray-600 dark:text-gray-300"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  Let’s connect! Fill out the form and I’ll get back to you shortly.
-                </motion.h2>
-              </div>
-
-              <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-start">
-                {/* Left Side – Form */}
-                <motion.div
-                  className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-md"
-                  initial={{ opacity: 0, x: -40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <h2 className="text-4xl font-bold text-[#ff014f] mb-4">Get In Touch</h2>
-                  <p className="text-gray-600 text-lg dark:text-gray-300 mb-8">
-                    Feel free to reach out for collaborations, questions, or just to say hi—I&apos;m always up for a good conversation.
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
-                      />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Your email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
-                      />
-                    </div>
-                    <textarea
-                      name="message"
-                      rows={5}
-                      placeholder="Message"
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
-                    ></textarea>
-                    <button
-                      type="submit"
-                      disabled={contactLoading}
-                      className="bg-[#ff014f] text-white px-6 py-3 rounded-md hover:opacity-90 transition font-semibold"
-                    >
-                      {contactLoading ? "Sending..." : "Send Message"}
-                    </button>
-
-                    {status && (
-                      <p className="text-sm mt-2 text-gray-600 dark:text-gray-300">{status}</p>
-                    )}
-                  </form>
-                </motion.div>
-
-                {/* Right Side – Contact Info */}
-                <motion.div
-                  className="space-y-8"
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {[
-                      {
-    title: "Call Me",
-    content: ["+713493712", "+764753712"],
-    icon: <FaPhone />,
-  },
-  {
-    title: "Email",
-    content: ["pamodmatheesha2020@gmail.com"],
-    icon: <FaEnvelope />,
-  },
-  {
-    title: "Address",
-    content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
-    icon: <FaMapMarkerAlt />,
-  },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <span className="text-2xl text-[#ff014f]">{item.icon}</span>
-                      <div>
-                        <h3 className="text-2xl font-semibold">{item.title}</h3>
-                        <div className="text-lg text-gray-600 dark:text-gray-300 space-y-1">
-                          {item.content.map((line, i) => (
-                            <p key={i}>{line}</p>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-
-              {/* Map */}
-              <motion.div
-                className="mt-16"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+              {/* === SKILLS SECTION === */}
+              <motion.section
+                ref={skillsRef}
+                className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <iframe
-                  className="w-full h-96 sm:px-6 lg:px-8 px-4 rounded-md border-0"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7887.465355142307!2d-0.13384360843222626!3d51.4876034467734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760532743b90e1%3A0x790260718555a20c!2sU.S.%20Embassy%2C%20London!5e0!3m2!1sen!2sbd!4v1632035375945!5m2!1sen!2sbd"
-                  loading="lazy"
-                  allowFullScreen
-                  title="Location map"
-                ></iframe>
-              </motion.div>
-            </section>
-          </motion.main>
-        )}
-      </AnimatePresence>
+                <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                  <div className="w-full max-w-full text-center md:text-left">
+                    <h2 className="text-[#ff014f] text-2xl sm:text-4xl text-center font-extrabold mb-4 sm:mb-6">SKILLS</h2>
+                    <h1 className="text-xl sm:text-3xl font-bold text-center">
+                      My QA and Development Skillset Expertise
+                    </h1>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  {/* Development Skills */}
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">Development Skills</h3>
+                    <SkillBar name="HTML/CSS" percent="100%" inView={skillsInView} />
+                    <SkillBar name="React.js" percent="90%" inView={skillsInView} />
+                    <SkillBar name="JavaScript" percent="75%" inView={skillsInView} />
+                    <SkillBar name="Java" percent="70%" inView={skillsInView} />
+                    <SkillBar name="MongoDB" percent="70%" inView={skillsInView} />
+                    <SkillBar name="Node.js" percent="60%" inView={skillsInView} />
+                    <SkillBar name="Next.js" percent="65%" inView={skillsInView} />
+                    <SkillBar name="Tailwind CSS" percent="80%" inView={skillsInView} />
+                  </div>
+
+                  {/* QA Skills */}
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">QA Skills</h3>
+                    <SkillBar name="Manual Testing" percent="90%" inView={skillsInView} />
+                    <SkillBar name="Automation Testing" percent="70%" inView={skillsInView} />
+                    <SkillBar name="Selenium" percent="65%" inView={skillsInView} />
+                    <SkillBar name="Postman" percent="75%" inView={skillsInView} />
+                    <SkillBar name="JMeter" percent="60%" inView={skillsInView} />
+                    <SkillBar name="API Testing" percent="60%" inView={skillsInView} />
+                  </div>
+                </div>
+              </motion.section>
+              </div>
+
+              {/* === PROJECTS SECTION === */}
+              <section id="projects" className="container mx-auto px-6 py-16 md:py-20 lg:py-24">
+                <div className="text-center mb-20 sm:mb-20">
+                  <h1 className="text-2xl sm:text-4xl font-extrabold mb-2 text-[#ff014f]">PROJECTS</h1>
+                  <h2 className="text-xl sm:text-2xl font-semibold">
+                    Some of my latest featured and QA projects
+                  </h2>
+                </div>
+
+                <div className="flex justify-center gap-4 sm:gap-6 flex-wrap mb-8 sm:mb-10">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`px-4 sm:px-6 py-1 sm:py-2 rounded-full border-2 text-sm sm:text-base font-semibold transition ${
+                        selectedCategory === cat
+                          ? "border-[#ff014f] bg-[#ff014f] text-white"
+                          : "border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-300 hover:border-[#ff014f]"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                {filteredProjects.length === 0 ? (
+                  <p className="text-center text-gray-500">
+                    No projects found for &quot;{selectedCategory}&quot; category.
+                  </p>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredProjects.map((project, index) => (
+                      <div
+                        key={index}
+                        data-aos="fade-up"
+                        data-aos-delay={`${index * 100}`}
+                        className="group rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900 relative"
+                      >
+                        <div className="relative h-48 w-full overflow-hidden">
+                          <Image
+                            src={project.image}
+                            alt={project.name}
+                            fill
+                            className="object-cover rounded-t-xl group-hover:scale-110 transition-transform duration-500"
+                            priority={index < 3}
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-bold text-lg mb-2 text-[#ff014f]">
+                            {project.name}
+                          </h3>
+                          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                            {project.description}
+                          </p>
+                          <button
+                            onClick={() => setSelectedProject(project)}
+                            className="mt-3 sm:mt-4 text-[#ff014f] text-sm sm:text-base font-semibold flex items-center gap-2 hover:text-[#d60036] transition-all duration-300 group"
+                          >
+                            View More 
+                            <FaArrowRight className="transform transition-transform duration-300 group-hover:translate-x-1" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {selectedProject && (
+                  <ProjectDetails
+                    project={selectedProject}
+                    onClose={() => setSelectedProject(null)}
+                  />
+                )}
+              </section>
+
+              {/* === CONTACT SECTION === */}
+              <section id="contact" className="bg-black">
+                <div className="container mx-auto px-6 py-16 md:py-20 lg:py-24">
+                  <div className="text-center py-12 sm:py-16">
+                    <motion.h1
+                      className="text-2xl sm:text-4xl font-extrabold text-[#ff014f] mb-2"
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      CONTACT ME
+                    </motion.h1>
+                    <motion.h2
+                      className="text-lg sm:text-xl font-semibold text-gray-600 dark:text-gray-300"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                      Let's connect! Fill out the form and I'll get back to you shortly.
+                    </motion.h2>
+                  </div>
+
+                  <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+                    {/* Left Side – Form */}
+                    <motion.div
+                      className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-lg shadow-md"
+                      initial={{ opacity: 0, x: -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <h2 className="text-2xl sm:text-4xl font-bold text-[#ff014f] mb-4">Get In Touch</h2>
+                      <p className="text-gray-600 text-base sm:text-lg dark:text-gray-300 mb-6 sm:mb-8">
+                        Feel free to reach out for collaborations, questions, or just to say hi—I'm always up for a good conversation.
+                      </p>
+
+                      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          <input
+                            type="text"
+                            name="name"
+                            placeholder="Your name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                          />
+                          <input
+                            type="email"
+                            name="email"
+                            placeholder="Your email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                          />
+                        </div>
+                        <textarea
+                          name="message"
+                          rows={5}
+                          placeholder="Message"
+                          required
+                          value={formData.message}
+                          onChange={handleChange}
+                          className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#ff014f]"
+                        ></textarea>
+                        <button
+                          type="submit"
+                          disabled={contactLoading}
+                          className="bg-[#ff014f] text-white px-6 py-3 rounded-md hover:opacity-90 transition font-semibold text-sm sm:text-base"
+                        >
+                          {contactLoading ? "Sending..." : "Send Message"}
+                        </button>
+
+                        {status && (
+                          <p className="text-sm mt-2 text-gray-600 dark:text-gray-300">{status}</p>
+                        )}
+                      </form>
+                    </motion.div>
+
+                    {/* Right Side – Contact Info */}
+                    <motion.div
+                      className="space-y-6 sm:space-y-8"
+                      initial={{ opacity: 0, x: 40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {[
+                        {
+                          title: "Call Me",
+                          content: ["+713493712", "+764753712"],
+                          icon: <FaPhone />,
+                        },
+                        {
+                          title: "Email",
+                          content: ["pamodmatheesha2020@gmail.com"],
+                          icon: <FaEnvelope />,
+                        },
+                        {
+                          title: "Address",
+                          content: ["498, Egoda Kelewaththa,", "Pothuhera, Kurunegala,", "Sri Lanka,"],
+                          icon: <FaMapMarkerAlt />,
+                        },
+                      ].map((item, index) => (
+                        <div key={index} className="flex items-start gap-4">
+                          <span className="text-xl sm:text-2xl text-[#ff014f]">{item.icon}</span>
+                          <div>
+                            <h3 className="text-xl sm:text-2xl font-semibold">{item.title}</h3>
+                            <div className="text-base sm:text-lg text-gray-600 dark:text-gray-300 space-y-1">
+                              {item.content.map((line, i) => (
+                                <p key={i}>{line}</p>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </div>
+
+                  {/* Map */}
+                  <motion.div
+                    className="mt-12 sm:mt-16"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    viewport={{ once: true }}
+                  >
+                    <iframe
+                      className="w-full h-64 sm:h-96 rounded-md border-0"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253916.42288920635!2d80.36521450915744!3d7.334327049137012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae36aa19b37ec15%3A0x62db6fab222e7cab!2sPothuhara%2C%20Sri%20Lanka!5e0!3m2!1sen!2slk!4v1722225360670!5m2!1sen!2slk"
+                      loading="lazy"
+                      allowFullScreen
+                      title="Location map"
+                    ></iframe>
+                  </motion.div>
+                </div>
+              </section>
+            </motion.main>
+          )}
+        </AnimatePresence>
+      </div>
       <Footer />
     </>
   );

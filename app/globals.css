@@ -1,7 +1,6 @@
 @import "tailwindcss";
-@import "remixicon/fonts/remixicon.css"; /* Remix Icon support */
+@import "remixicon/fonts/remixicon.css";
 
-/* Theme Variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,7 +14,6 @@
   }
 }
 
-/* Base Body Styling */
 body {
   @apply bg-white text-black dark:bg-[#0a0a0a] dark:text-white;
   font-family: var(--font-sans);
@@ -24,14 +22,12 @@ body {
   line-height: 1.6;
 }
 
-/* Ensure sections stack vertically */
 main {
   display: flex;
   flex-direction: column;
   gap: 4rem;
 }
 
-/* Utility: Spinner Animation */
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -42,7 +38,6 @@ main {
   animation: spin 1s linear infinite;
 }
 
-/* === Background Gradient Animation === */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -59,4 +54,30 @@ main {
   background: linear-gradient(270deg, #ff014f, #ff75a0, #ff014f);
   background-size: 600% 600%;
   animation: gradientShift 20s ease infinite;
+}
+
+/* === Artistic Border for Image === */
+.artistic-border {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.artistic-border::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 4px dashed #ff014f;
+  border-radius: 16px;
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.artistic-border:hover::before {
+  box-shadow: 0 0 20px rgba(255, 1, 79, 0.6);
 }

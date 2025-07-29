@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { FaDotCircle } from "react-icons/fa";
 import Navbar from "@/components/Navbar";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import Footer from "@/components/Footer";
+import { motion, Variants } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 // =========================
 // SkillBar Component
@@ -42,9 +42,9 @@ const personalInfos = [
   { label: "First Name", value: "Matheesha" },
   { label: "Last Name", value: "Kalatuwawa" },
   { label: "Address", value: "Pothuhera" },
-  { label: "Phone", value: "+764753712" },
+  { label: "Phone", value: "+713493712" },
   { label: "Age", value: "25 Years" },
-  { label: "Email", value: "matheeshakalatuwawa@gmail.com" },
+  { label: "Email", value: "pamodmatheesha2020@gmail.com" },
   { label: "Nationality", value: "Sri Lankan" },
   { label: "Languages", value: "Sinhala, English" },
 ];
@@ -79,11 +79,14 @@ const educationData = [
 // =========================
 // EducationCard Component
 // =========================
-function EducationCard({ item, delay }: { item: typeof educationData[0]; delay: number }) {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+function EducationCard({
+  item,
+  delay,
+}: {
+  item: typeof educationData[0];
+  delay: number;
+}) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
     <motion.div
@@ -100,12 +103,8 @@ function EducationCard({ item, delay }: { item: typeof educationData[0]; delay: 
         <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">
           {item.title}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-          {item.subtitle}
-        </p>
-        <p className="text-sm text-gray-700 dark:text-gray-300">
-          {item.description}
-        </p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
       </div>
     </motion.div>
   );
@@ -120,6 +119,20 @@ function About() {
     threshold: 0.3,
   });
 
+  const listVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <>
       <Navbar />
@@ -127,48 +140,76 @@ function About() {
       <main className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto text-gray-800 dark:text-white">
         {/* === ABOUT SECTION === */}
         <section className="mb-10 mt-20">
-          <div className="text-center mb-18">
-            <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold">
-              ABOUT ME
-            </h2>
-          </div>
+          <motion.div
+            className="text-center mb-18"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold">ABOUT ME</h2>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-40 items-center">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold mb-6">
+              <motion.h1
+                className="text-2xl sm:text-3xl font-bold mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
                 I catch bugs early using QA.
-              </h1>
-              <h3 className="text-lg font-semibold text-[#ff014f] mb-4">
-                PERSONAL INFOS:
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base">
-                {personalInfos.map((item, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <FaDotCircle className="text-[#ff014f] text-sm flex-shrink-0" />
-                    <span>
-                      {item.label}: {item.value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              </motion.h1>
 
-              <a
+              <motion.h3
+                className="text-lg font-semibold text-[#ff014f] mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                PERSONAL INFOS:
+              </motion.h3>
+
+              <motion.ul
+                className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base"
+                initial="hidden"
+                animate="visible"
+                variants={listVariants}
+              >
+                {personalInfos.map((item, index) => (
+                  <motion.li key={index} className="flex items-center gap-3" variants={itemVariants}>
+                    <FaDotCircle className="text-[#ff014f] text-sm flex-shrink-0" />
+                    <span>{item.label}: {item.value}</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
+
+              <motion.a
                 href="/contacts"
-                className="inline-block mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-base font-semibold hover:opacity-90 transition"
+                className="inline-block mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-base font-semibold hover:opacity-90 transition transform origin-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.5, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
               >
                 Contact Me
-              </a>
+              </motion.a>
             </div>
 
-            <div className="relative w-full max-w-md mx-auto md:mx-0">
+            <motion.div
+              className="relative w-full max-w-md mx-auto md:mx-0 artistic-border"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+            >
               <Image
                 src="/images/about/about1.jpg"
                 alt="About"
                 width={500}
                 height={500}
-                className="rounded-lg transition duration-500 hover:scale-105 object-cover w-full h-auto"
+                className="rounded-lg transition duration-500 object-cover w-full h-auto"
               />
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -181,9 +222,7 @@ function About() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold mb-4">
-              EDUCATION
-            </h2>
+            <h2 className="text-[#ff014f] text-3xl sm:text-4xl font-extrabold mb-4">EDUCATION</h2>
             <h1 className="text-2xl sm:text-2xl font-bold">Resume of Education</h1>
           </motion.div>
 
@@ -204,9 +243,9 @@ function About() {
           viewport={{ once: true }}
         >
           <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
-            <div className="w-full max-w-full">
-              <h2 className="text-[#ff014f] text-4xl font-extrabold mb-6">SKILLS</h2>
-              <h1 className="text-2xl sm:text-2xl font-bold whitespace-nowrap">
+            <div className="w-full max-w-full text-center md:text-left">
+              <h2 className="text-[#ff014f] text-4xl text-center font-extrabold mb-6">SKILLS</h2>
+              <h1 className="text-2xl sm:text-3xl font-bold text-center">
                 My QA and Development Skillset Expertise
               </h1>
             </div>
@@ -214,9 +253,7 @@ function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
-              <h3 className="text-xl font-semibold text-[#ff014f] mb-4">
-                Development Skills
-              </h3>
+              <h3 className="text-xl font-semibold text-[#ff014f] mb-4">Development Skills</h3>
               <SkillBar name="HTML/CSS" percent="100%" inView={skillsInView} />
               <SkillBar name="React.js" percent="90%" inView={skillsInView} />
               <SkillBar name="JavaScript" percent="75%" inView={skillsInView} />
@@ -239,6 +276,7 @@ function About() {
           </div>
         </motion.section>
       </main>
+
       <Footer />
     </>
   );
