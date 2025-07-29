@@ -868,7 +868,7 @@ export default function Home() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                      Let's connect! Fill out the form and I'll get back to you shortly.
+                      Let&apos;s connect! Fill out the form and I&apos;ll get back to you shortly.
                     </motion.h2>
                   </div>
 
@@ -883,7 +883,7 @@ export default function Home() {
                     >
                       <h2 className="text-2xl sm:text-4xl font-bold text-[#ff014f] mb-4">Get In Touch</h2>
                       <p className="text-gray-600 text-base sm:text-lg dark:text-gray-300 mb-6 sm:mb-8">
-                        Feel free to reach out for collaborations, questions, or just to say hi—I'm always up for a good conversation.
+                        Feel free to reach out for collaborations, questions, or just to say hi—I&apos;m always up for a good conversation.
                       </p>
 
                       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
