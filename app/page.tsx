@@ -32,21 +32,31 @@ const educationData = [
     subtitle: "Plymouth University (UK)",
     year: "2023–PRESENT",
     description:
-      "Pursuing BSc (Hons) in Software Engineering via NSBM Green University. Expected graduation: 2026.",
+      "I am currently pursuing my undergraduate degree through a collaborative program between the University of Plymouth (UK) and NSBM Green University (Sri Lanka), with an expected graduation in 2026. This transnational program combines UK academic standards with local expertise, offering a balance of theory and practical experience. It provides global exposure, diverse cultural insights, and a strong foundation in my field, preparing me for success in a competitive international job market.",
+    image: "/images/education/plymouth.png"
   },
   {
     title: "SQA Professional Programme",
     subtitle: "SLIIT Campus",
     year: "2024–2025",
     description:
-      "Completed QA training covering Agile, API, performance, mobile, and security testing. Tools: Selenium, TestNG, Postman, JMeter.",
+      "I completed training at the Sri Lanka Institute of Information Technology (SLIIT) in Quality Assurance and Software Testing, with a focus on Agile methodologies and industry best practices. I gained hands-on experience in API, performance, mobile, and security testing, and worked with tools like Selenium, TestNG, Postman, and JMeter. The program also enhanced my understanding of test automation, scripting, and continuous integration, preparing me to contribute effectively to modern QA and development teams.",
+    image: "/images/education/sliit1.jpg"
   },
   {
     title: "Certificate in Software Engineering",
     subtitle: "NIBM Campus",
     year: "2022–2023",
-    description: "Learned HTML, CSS, JS, C#, .NET, and OOP basics for web development.",
+    description: "I completed foundational training at the National Institute of Business Management (NIBM), where I learned basic web development using HTML, CSS, and JavaScript. I was also introduced to C#, the .NET framework, and object-oriented programming (OOP) concepts, gaining a solid understanding of software development fundamentals and code structure.",
+    image: "/images/education/nibm.jpg"
   },
+  {
+    title: "G.C.E. O/L & A/L Education",
+    subtitle: "Maliyadeva College, Kurunegala",
+    year: "2006 – 2020",
+    description: "I completed my G.C.E. Advanced Level in 2020 with a focus on the Physics stream, gaining a solid foundation in Physics, Mathematics, and Chemistry. I also completed my G.C.E. Ordinary Level in 2016, building a broad academic base in key subjects such as Mathematics, Science, English, and ICT.",
+    image: "/images/education/maliyadeva.jpg"
+  }
 ];
 
 // === Project Types ===
@@ -206,9 +216,11 @@ const SkillBar = ({
 function EducationCard({
   item,
   index,
+  isLast,
 }: {
   item: typeof educationData[0];
   index: number;
+  isLast: boolean;
 }) {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -216,22 +228,47 @@ function EducationCard({
   });
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1"
-    >
-      <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-        {item.year}
+    <div ref={ref} className="relative pl-8 pb-8 group">
+      {/* Timeline dot */}
+      <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#ff014f] border-4 border-white dark:border-gray-900 z-10 flex items-center justify-center">
+        <div className="w-2 h-2 rounded-full bg-white dark:bg-gray-900"></div>
       </div>
-      <div className="pt-10">
-        <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-2">{item.title}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
-      </div>
-    </motion.div>
+
+      {/* Timeline line */}
+      {!isLast && (
+        <div className="absolute left-3 top-6 w-0.5 h-full bg-[#ff014f]"></div>
+      )}
+
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: index * 0.15 }}
+        className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 ml-4"
+      >
+        <div className="flex items-start gap-4">
+          {/* Small rounded image */}
+          <div className="w-10 h-10 sm:w-15 sm:h-15 flex-shrink-0 relative rounded-full overflow-hidden border-2 border-[#ff014f]">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 64px, 80px"
+            />
+          </div>
+          
+          {/* Content */}
+          <div className="flex-1">
+            <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+              {item.year}
+            </div>
+            <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-1">{item.title}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -418,6 +455,11 @@ export default function Home() {
     threshold: 0.3,
   });
 
+  const { ref: aboutRef, inView: aboutInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   const filteredProjects =
     selectedCategory === "All"
       ? projects
@@ -544,14 +586,14 @@ export default function Home() {
               {/* === HERO SECTION === */}
               <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-                  <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-[300px] sm:h-[400px] mx-auto">
+                  <div className="relative w-full max-w-[250px] sm:max-w-[270px] md:max-w-[280px] h-[230px] sm:h-[290px] border-3 border-[#ff014f] rounded-full mx-auto shadow-lg">
                     {images.map((src, i) => (
                       <Image
                         key={i}
                         src={src}
                         alt={`Profile ${i + 1}`}
                         fill
-                        className={`absolute inset-0 object-cover rounded-3xl shadow-lg transition-opacity duration-1000 ease-in-out ${
+                        className={`absolute inset-0 object-cover rounded-full shadow-[0_0_25px_#ff014f] transition-opacity duration-1000 ease-in-out ${
                           i === imgIndex ? "opacity-100 scale-100" : "opacity-0 scale-95"
                         }`}
                         priority={i === imgIndex}
@@ -574,10 +616,10 @@ export default function Home() {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-12">
                       <a
-                        href="#contact"
+                        href="#about"
                         className="px-6 py-3 text-sm sm:text-lg bg-[#ff014f] text-white rounded-full hover:bg-[#e60043] transition"
                       >
-                        Contact Me
+                        About Me
                       </a>
                       <div className="flex flex-wrap items-center justify-center gap-3">
                         <span className="text-sm sm:text-lg font-bold text-gray-800 dark:text-white">Follow Me:</span>
@@ -620,159 +662,184 @@ export default function Home() {
               </section>
 
               {/* === ABOUT SECTION === */}
-              <div className="bg-black container mx-auto px-6lg:py-24 ">
-              <section id="about" className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white relative z-10">
-                <motion.div
-                  className="text-center mb-12"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
+              <div className="bg-black container mx-auto px-6 lg:py-24">
+                <section 
+                  id="about" 
+                  ref={aboutRef}
+                  className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white relative z-10"
                 >
-                  <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold">ABOUT ME</h2>
-                </motion.div>
+                  <motion.div
+                    className="text-center mb-12"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold">ABOUT ME</h2>
+                  </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 lg:gap-x-20 items-center">
-                  <div>
-                    <motion.h1
-                      className="text-xl sm:text-3xl font-bold mb-6 leading-snug"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.6 }}
-                    >
-                      I catch bugs early using QA.
-                    </motion.h1>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 lg:gap-x-20 items-center">
+                    <div>
+                      <motion.h1
+                        className="text-xl sm:text-3xl font-bold mb-6 leading-snug"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                      >
+                        I catch bugs early using QA.
+                      </motion.h1>
 
-                    <motion.h3
-                      className="text-base sm:text-lg font-semibold text-[#ff014f] mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                    >
-                      PERSONAL INFOS:
-                    </motion.h3>
+                      <motion.h3
+                        className="text-base sm:text-lg font-semibold text-[#ff014f] mb-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ delay: 0.3, duration: 0.6 }}
+                      >
+                        PERSONAL INFOS:
+                      </motion.h3>
 
-                    <motion.ul
-                      className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm sm:text-base"
-                      initial="hidden"
-                      animate="visible"
-                      variants={{
-                        hidden: {},
-                        visible: {
-                          transition: {
-                            staggerChildren: 0.15,
+                      <motion.ul
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm sm:text-base"
+                        initial="hidden"
+                        animate={aboutInView ? "visible" : "hidden"}
+                        variants={{
+                          hidden: {},
+                          visible: {
+                            transition: {
+                              staggerChildren: 0.15,
+                            },
                           },
-                        },
-                      }}
-                    >
-                      {personalInfos.map((item, index) => (
-                        <motion.li 
-                          key={index} 
-                          className="flex items-center gap-3"
-                          variants={{
-                            hidden: { opacity: 0, x: -20 },
-                            visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-                          }}
-                        >
-                          <FaDotCircle className="text-[#ff014f] text-xs sm:text-sm flex-shrink-0" />
-                          <span>{item.label}: {item.value}</span>
-                        </motion.li>
-                      ))}
-                    </motion.ul>
+                        }}
+                      >
+                        {personalInfos.map((item, index) => (
+                          <motion.li 
+                            key={index} 
+                            className="flex items-center gap-3"
+                            variants={{
+                              hidden: { opacity: 0, x: -20 },
+                              visible: { 
+                                opacity: 1, 
+                                x: 0, 
+                                transition: { 
+                                  duration: 0.5,
+                                  ease: "easeOut"
+                                } 
+                              },
+                            }}
+                          >
+                            <FaDotCircle className="text-[#ff014f] text-xs sm:text-sm flex-shrink-0" />
+                            <span>{item.label}: {item.value}</span>
+                          </motion.li>
+                        ))}
+                      </motion.ul>
 
-                    <motion.a
-                      href="/contacts"
-                      className="inline-block mt-6 sm:mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-sm sm:text-base font-semibold hover:opacity-90 transition transform origin-center"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 1.5, duration: 0.5 }}
+                      <motion.a
+                        href="/contacts"
+                        className="inline-block mt-6 sm:mt-8 bg-[#ff014f] text-white px-6 py-3 rounded-md text-sm sm:text-base font-semibold hover:opacity-90 transition transform origin-center"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={aboutInView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ delay: 1.5, duration: 0.5 }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        Contact Me
+                      </motion.a>
+                    </div>
+
+                    <motion.div
+                      className="relative w-full max-w-xl mx-auto md:mx-0"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={aboutInView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ delay: 0.8, duration: 0.8 }}
                       whileHover={{ scale: 1.05 }}
                     >
-                      Contact Me
-                    </motion.a>
+                      <div className="group relative overflow-hidden rounded-xl shadow-xl border-2 border-[#ff014f]">
+                        <Image
+                          src="/images/about/about1.jpg"
+                          alt="About"
+                          width={500}
+                          height={500}
+                          className="transition-transform duration-700 ease-in-out transform group-hover:scale-110 group-hover:brightness-110 object-cover w-full h-75"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-xl" />
+                      </div>
+                    </motion.div>
                   </div>
+                </section>
 
+                {/* === EDUCATION SECTION === */}
+                <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white">
                   <motion.div
-                    className="relative w-full max-w-xl mx-auto md:mx-0"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                    whileHover={{ scale: 1.05 }}
+                    className="text-center mb-12"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
                   >
-                    <Image
-                      src="/images/about/about1.jpg"
-                      alt="About"
-                      width={500}
-                      height={500}
-                      className="rounded-lg transition duration-500 object-cover w-full h-75"
-                    />
+                    <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold mb-2 sm:mb-4">EDUCATION</h2>
+                    <h1 className="text-xl sm:text-2xl font-bold">Resume of Education</h1>
                   </motion.div>
-                </div>
-              </section>
 
-              {/* === EDUCATION SECTION === */}
-              <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white">
-                <motion.div
-                  className="text-center mb-12"
-                  initial={{ opacity: 0, y: 30 }}
+                  <div className="relative max-w-4xl mx-auto">
+                    {/* Vertical timeline */}
+                    <div className="absolute left-8 top-0 h-full w-0.5 bg-gray-300 dark:bg-gray-700"></div>
+                    
+                    {/* Education cards */}
+                    <div className="space-y-8">
+                      {educationData.map((item, index) => (
+                        <EducationCard 
+                          key={index} 
+                          item={item} 
+                          index={index}
+                          isLast={index === educationData.length - 1}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                {/* === SKILLS SECTION === */}
+                <motion.section
+                  ref={skillsRef}
+                  className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white"
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <h2 className="text-[#ff014f] text-2xl sm:text-4xl font-extrabold mb-2 sm:mb-4">EDUCATION</h2>
-                  <h1 className="text-xl sm:text-2xl font-bold">Resume of Education</h1>
-                </motion.div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {educationData.map((item, index) => (
-                    <EducationCard key={index} item={item} index={index} />
-                  ))}
-                </div>
-              </section>
-
-              {/* === SKILLS SECTION === */}
-              <motion.section
-                ref={skillsRef}
-                className="container mx-auto px-6 py-16 md:py-20 lg:py-24 text-gray-800 dark:text-white"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
-                  <div className="w-full max-w-full text-center md:text-left">
-                    <h2 className="text-[#ff014f] text-2xl sm:text-4xl text-center font-extrabold mb-4 sm:mb-6">SKILLS</h2>
-                    <h1 className="text-xl sm:text-3xl font-bold text-center">
-                      My QA and Development Skillset Expertise
-                    </h1>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  {/* Development Skills */}
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">Development Skills</h3>
-                    <SkillBar name="HTML/CSS" percent="100%" inView={skillsInView} />
-                    <SkillBar name="React.js" percent="90%" inView={skillsInView} />
-                    <SkillBar name="JavaScript" percent="75%" inView={skillsInView} />
-                    <SkillBar name="Java" percent="70%" inView={skillsInView} />
-                    <SkillBar name="MongoDB" percent="70%" inView={skillsInView} />
-                    <SkillBar name="Node.js" percent="60%" inView={skillsInView} />
-                    <SkillBar name="Next.js" percent="65%" inView={skillsInView} />
-                    <SkillBar name="Tailwind CSS" percent="80%" inView={skillsInView} />
+                  <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                    <div className="w-full max-w-full text-center md:text-left">
+                      <h2 className="text-[#ff014f] text-2xl sm:text-4xl text-center font-extrabold mb-4 sm:mb-6">SKILLS</h2>
+                      <h1 className="text-xl sm:text-3xl font-bold text-center">
+                        My QA and Development Skillset Expertise
+                      </h1>
+                    </div>
                   </div>
 
-                  {/* QA Skills */}
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">QA Skills</h3>
-                    <SkillBar name="Manual Testing" percent="90%" inView={skillsInView} />
-                    <SkillBar name="Automation Testing" percent="70%" inView={skillsInView} />
-                    <SkillBar name="Selenium" percent="65%" inView={skillsInView} />
-                    <SkillBar name="Postman" percent="75%" inView={skillsInView} />
-                    <SkillBar name="JMeter" percent="60%" inView={skillsInView} />
-                    <SkillBar name="API Testing" percent="60%" inView={skillsInView} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {/* Development Skills */}
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">Development Skills</h3>
+                      <SkillBar name="HTML/CSS" percent="100%" inView={skillsInView} />
+                      <SkillBar name="React.js" percent="90%" inView={skillsInView} />
+                      <SkillBar name="JavaScript" percent="75%" inView={skillsInView} />
+                      <SkillBar name="Java" percent="70%" inView={skillsInView} />
+                      <SkillBar name="MongoDB" percent="70%" inView={skillsInView} />
+                      <SkillBar name="Node.js" percent="60%" inView={skillsInView} />
+                      <SkillBar name="Next.js" percent="65%" inView={skillsInView} />
+                      <SkillBar name="Tailwind CSS" percent="80%" inView={skillsInView} />
+                    </div>
+
+                    {/* QA Skills */}
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-4">QA Skills</h3>
+                      <SkillBar name="Manual Testing" percent="90%" inView={skillsInView} />
+                      <SkillBar name="Automation Testing" percent="70%" inView={skillsInView} />
+                      <SkillBar name="Selenium" percent="65%" inView={skillsInView} />
+                      <SkillBar name="Postman" percent="75%" inView={skillsInView} />
+                      <SkillBar name="JMeter" percent="60%" inView={skillsInView} />
+                      <SkillBar name="API Testing" percent="60%" inView={skillsInView} />
+                    </div>
                   </div>
-                </div>
-              </motion.section>
+                </motion.section>
               </div>
 
               {/* === PROJECTS SECTION === */}
