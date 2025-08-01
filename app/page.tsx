@@ -228,49 +228,56 @@ function EducationCard({
   });
 
   return (
-    <div ref={ref} className="relative pl-8 pb-8 group">
+    <div ref={ref} className="relative pl-6 sm:pl-8 pb-8 group">
       {/* Timeline dot */}
-      <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#ff014f] border-4 border-white dark:border-gray-900 z-10 flex items-center justify-center">
-        <div className="w-2 h-2 rounded-full bg-white dark:bg-gray-900"></div>
+      <div className="absolute left-0 top-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#ff014f] border-4 border-white dark:border-gray-900 z-10 flex items-center justify-center">
+        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white dark:bg-gray-900"></div>
       </div>
 
       {/* Timeline line */}
       {!isLast && (
-        <div className="absolute left-3 top-6 w-0.5 h-full bg-[#ff014f]"></div>
+        <div className="absolute left-[0.625rem] sm:left-3 top-5 sm:top-6 w-0.5 h-full bg-[#ff014f]"></div>
       )}
 
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: index * 0.15 }}
-        className="relative group border border-none dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 ml-4"
+        className="relative group border border-none dark:border-gray-700 rounded-xl p-4 sm:p-6 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 ml-3 sm:ml-4"
       >
-        <div className="flex items-start gap-4">
+        <div className="flex flex-col sm:flex-row items-start gap-4">
           {/* Small rounded image */}
-          <div className="w-10 h-10 sm:w-15 sm:h-15 flex-shrink-0 relative rounded-full overflow-hidden border-2 border-[#ff014f]">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 relative rounded-full overflow-hidden border-2 border-[#ff014f] flex-shrink-0">
             <Image
               src={item.image}
               alt={item.title}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 64px, 80px"
+              sizes="(max-width: 768px) 48px, 64px"
             />
           </div>
-          
+
           {/* Content */}
-          <div className="flex-1">
-            <div className="absolute top-4 right-4 bg-[#ff014f] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+          <div className="flex-1 w-full">
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-[#ff014f] text-white text-xs sm:text-sm font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-md">
               {item.year}
             </div>
-            <h3 className="text-lg sm:text-xl font-semibold text-[#ff014f] mb-1">{item.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.subtitle}</p>
-            <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[#ff014f] mb-1">
+              {item.title}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1 sm:mb-2">
+              {item.subtitle}
+            </p>
+            <p className="text-sm text-gray-700 dark:text-gray-300">
+              {item.description}
+            </p>
           </div>
         </div>
       </motion.div>
     </div>
   );
 }
+
 
 // === ProjectDetails Component ===
 function ProjectDetails({
@@ -586,7 +593,7 @@ export default function Home() {
               {/* === HERO SECTION === */}
               <section className="container mx-auto px-6 py-16 md:py-20 lg:py-24 relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-                  <div className="relative w-full max-w-[250px] sm:max-w-[270px] md:max-w-[280px] h-[230px] sm:h-[290px] border-3 border-[#ff014f] rounded-full mx-auto shadow-lg">
+                 <div className="relative w-[280px] h-[280px] border-3 border-[#ff014f] rounded-full mx-auto shadow-lg">
                     {images.map((src, i) => (
                       <Image
                         key={i}
